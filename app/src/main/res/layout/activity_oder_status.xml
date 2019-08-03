@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_status_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbar"
+            android:elevation="4dp"
+            android:foregroundGravity="center"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/MyPopupTheme"
+            app:theme="@style/MyToolBarTheme"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:title="ORDER STATUS"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_order"
+        android:layout_width="match_parent"
+        android:padding="8dp"
+        android:layout_margin="@dimen/size_ten"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/order_list"
+        />
+
+
+
+
+
+
+
+
+
+
+</LinearLayout>

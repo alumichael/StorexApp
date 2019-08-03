@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/size_four"
+        android:id="@+id/attr_thubmnail"
+        android:orientation="horizontal"
+        android:background="@drawable/pentagon"
+        android:backgroundTint="@color/colorPrimary"
+
+
+       >
+
+        <TextView
+            android:id="@+id/attr_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XL"
+            android:textColor="@color/colorWhite"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </FrameLayout>
+

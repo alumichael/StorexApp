@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/inspire_layout"
+    android:weightSum="3">
+    <LinearLayout
+        android:id="@+id/life_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:background="#b2b2b2">
+
+        <TextView
+            android:id="@+id/life_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LIFE"
+            android:fontFamily="@font/sourcesanspro_light"
+            android:textSize="28sp"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fashion_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:background="#7f7f7f">
+
+        <TextView
+            android:id="@+id/fashion_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FASHION"
+            android:textSize="28sp"
+            android:fontFamily="@font/sourcesanspro_light"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/video_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:background="#4c4c4c">
+
+        <TextView
+            android:id="@+id/video_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VIDEO"
+            android:textSize="28sp"
+            android:fontFamily="@font/sourcesanspro_light"
+            android:textAlignment="center"
+            android:gravity="center_vertical"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

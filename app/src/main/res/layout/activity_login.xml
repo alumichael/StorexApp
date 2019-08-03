@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ndroid="http://schemas.android.com/tools"
+    android:background="@color/colorToolbar"
+    android:id="@+id/login_layout"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorToolbar"
+        android:elevation="4dp"
+        android:foregroundGravity="center"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/MyPopupTheme"
+        app:theme="@style/MyToolBarTheme"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:title="SIGN IN"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        >
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="4dp"
+        android:layout_gravity="center"
+        android:padding="@dimen/size_ten"
+        android:layout_margin="@dimen/size_eight"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_gravity="center_vertical"
+          android:gravity="center_vertical"
+          android:padding="@dimen/size_ten"
+          android:orientation="vertical">
+
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/inputLayoutEmail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/size_ten"
+          android:layout_marginLeft="@dimen/size_ten"
+          android:layout_marginRight="@dimen/size_ten"
+          >
+
+        <EditText
+            android:id="@+id/email_editxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/sourcesanspro_regular"
+            />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/inputLayoutPassword"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/size_ten"
+          android:layout_marginLeft="@dimen/size_ten"
+          android:layout_marginRight="@dimen/size_ten"
+          android:fontFamily="@font/sourcesanspro_regular">
+
+        <EditText
+            android:id="@+id/password_editxt"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_fingerprint_black_24dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            />
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <Button
+          android:id="@+id/login_btn"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/size_fifteen"
+          android:background="@color/colorAccent"
+          android:text="Login"
+          android:textSize="18sp"
+          android:fontFamily="@font/sourcesanspro_bold"
+          android:textColor="@android:color/white"
+          android:visibility="visible" />
+
+      <com.wang.avi.AVLoadingIndicatorView
+          android:id="@+id/avi1"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/size_thirty"
+          android:layout_gravity="center"
+          android:visibility="gone"
+          app:indicatorColor="@color/colorAccent"
+          app:indicatorName="BallPulseIndicator" />
+
+
+          <com.facebook.login.widget.LoginButton
+              android:id="@+id/fblogin_button"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center"
+              android:layout_margin="@dimen/size_fifteen"
+              android:textSize="18sp"
+              android:fontFamily="@font/sourcesanspro_bold"
+              />
+
+      </LinearLayout>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size_twenty"
+        android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+        android:orientation="horizontal">
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:fontFamily="@font/sourcesanspro_regular"
+          android:textSize="18sp"
+          android:text="Not yet Sign Up?"/>
+      <TextView
+          android:id="@+id/signup_txt"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="3dp"
+          android:textSize="18sp"
+          android:fontFamily="@font/sourcesanspro_bold"
+          android:textColor="@color/colorAccent"
+          android:text="Sign Up"/>
+
+    </LinearLayout>
+    </LinearLayout>
+
+  </LinearLayout>
+
+

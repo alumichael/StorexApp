@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorToolbar"
+    app:cardCornerRadius="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorToolbar"
+        android:layout_margin="@dimen/size_eight"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbar"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/size_eight"
+            android:weightSum="3">
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_bold"
+                    android:text="ORDER ID"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/order_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:text="457GHFDHJM"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_bold"
+                    android:text="AMOUNT"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/amount_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:text="$67577.00"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_bold"
+                    android:text="ITEMS"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/item_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:text="4"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="6dp"
+            android:padding="@dimen/size_ten"
+            android:background="@color/colorWhite"
+            app:cardElevation="5dp"
+            android:layout_marginBottom="10dp"
+            >
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+               <TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Placed on Wednesday,\nDecember 30,02.2014"
+                   android:gravity="center"
+                   android:textColor="@color/colorPrimary"
+                   android:textSize="18sp"
+                   android:layout_margin="@dimen/size_ten"
+                   />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/size_ten"
+                android:weightSum="3">
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
+                        android:text="ORDER PLACED"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginBottom="4dp"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/order_placed_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_tag"
+                        android:layout_margin="8dp"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
+                        android:text="QUALITY CHECK"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/quality_check_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_tag"
+                        android:layout_margin="8dp"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
+                        android:text="CARRYOUT"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/carryout_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/ic_tag"
+                        android:layout_margin="8dp"
+                        />
+
+
+                </LinearLayout>
+
+</LinearLayout>
+
+
+
+           </LinearLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_shopping_cart_dark"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Progress"
+                android:layout_weight="1"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:textSize="15sp"
+                />
+            <Button
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/colorPrimary"
+                android:text="View Detail"
+                android:textColor="@color/colorWhite"
+                />
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/colorWhite"
+            android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+
+            >
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:textColor="@color/colorPrimary"
+                android:textAlignment="center"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:textSize="16sp"
+                android:text="Nice to Work on this App ooooooooo\nhgshshsggdgd"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/layoutDots"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dots_height"
+                android:layout_marginBottom="@dimen/dots_margin_bottom"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+
+
+            <Button
+                android:id="@+id/signin_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="Sign In"
+                android:textSize="16sp"
+                android:fontFamily="@font/sourcesanspro_bold"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/textColorPrimary"
+                android:background="@color/colorPrimary"
+
+                />
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_vertical|center_horizontal|center"
+        android:layout_marginBottom="@dimen/size_sixty"
+        android:gravity="center"
+        android:padding="@dimen/size_ten"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutDots"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dots_height"
+            android:layout_marginBottom="@dimen/dots_margin_bottom"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+        <Button
+            android:id="@+id/get_started_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_fifteen"
+            android:layout_marginRight="@dimen/size_fifteen"
+            android:background="@drawable/rounded_bg_color_btn"
+            android:text="@string/get_started"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+
+    </LinearLayout>-->
+</FrameLayout>

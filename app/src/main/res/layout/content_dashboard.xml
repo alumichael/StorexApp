@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/content_dash_layout"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".actvities.Dashboard"
+    tools:showIn="@layout/app_bar_dashboard">
+
+
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorToolbar"
+        android:layout_weight="1"
+
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="bottom|center"
+        android:weightSum="5"
+        android:background="@drawable/buttom_bg_color"
+        android:padding="@dimen/size_twelve">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:id="@+id/shop_btn_lay"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_store_black_24dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shop"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:gravity="center_horizontal"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/inspire_btn_lay"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:srcCompat="@drawable/ic_wb_sunny_black_24dp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inspiration"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:textAlignment="center"
+                android:gravity="center"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/cart_btn_lay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            >
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/rounded_cart_bg_outer">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_cart_bg"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:elevation="6dp"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/image_btn_layout"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/ic_cart"
+                        />
+
+                    <TextView
+                        android:id="@+id/count_tv_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/image_btn_layout"
+                        android:layout_alignEnd="@+id/image_btn_layout"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/rounded_textview"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:text="0"
+                        android:fontFamily="@font/sourcesanspro_bold"
+                        android:foregroundGravity="center"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="12sp" />
+
+
+
+                </RelativeLayout>
+
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/store_btn_lay"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_location_on_black_24dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stores"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:gravity="center_horizontal"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:id="@+id/more_btn_lay"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_more_horiz_black_24dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="More"
+                android:textColor="@color/colorPrimary"
+                android:textSize="10sp"
+                android:gravity="center_horizontal"
+                />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

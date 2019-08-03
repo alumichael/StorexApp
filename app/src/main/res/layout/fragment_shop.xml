@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/shop_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/size_ten"
+        >
+        <TextView
+            android:id="@+id/promotxt1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LAST CHANCE"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="@color/colorAccent"
+
+            />
+
+        <TextView
+            android:id="@+id/promotxt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Holiday shipping ends soon"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="@color/colorWhite"
+
+            />
+
+        <TextView
+            android:id="@+id/shop_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOP NOW"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:textColor="@color/colorAccent"
+
+            />
+
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/men_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/size_two"
+        android:backgroundTint="#9edadf"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_six"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="MEN"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="40sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="OUTWEAR"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="19sp"
+                />
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/wommen_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/size_two"
+        android:backgroundTint="#f7a07a"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_six"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="WOMEN"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="40sp"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="OUTWEAR"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="19sp"
+                />
+
+        </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="winter sale"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:textSize="23sp"
+
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="UP TO 60% OFF"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/size_twelve"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/sourcesanspro_light"
+        android:textSize="24sp"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/size_fifteen"
+        android:layout_marginStart="@dimen/size_ten"
+        android:layout_marginEnd="@dimen/size_ten"
+        android:layout_marginBottom="@dimen/size_ten"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_six"
+
+            >
+            <com.glide.slider.library.SliderLayout
+
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                />
+
+            <Button
+                android:id="@+id/shop_tag_btn"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="SHOP NOW"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_bold"
+                android:background="@drawable/rounded_bg_color_btn"
+                android:layout_gravity="end|center_vertical"
+                />
+
+        </FrameLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+</LinearLayout>
+
+
+
+</FrameLayout>

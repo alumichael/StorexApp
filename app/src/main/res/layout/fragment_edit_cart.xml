@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/edit_cart_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="EDIT ITEM"
+            android:gravity="center"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+
+            />
+
+    </LinearLayout>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_thirty"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallPulseIndicator" />
+
+    <LinearLayout
+        android:id="@+id/edit_target_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_eight"
+            android:orientation="horizontal"
+            android:padding="@dimen/size_ten"
+            >
+            <ImageView
+                android:id="@+id/product_thumnail"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_shop"
+                />
+            <View
+                android:layout_width="5dp"
+                android:layout_height="0dp"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="@dimen/size_ten"
+                android:weightSum="2"
+                >
+                <TextView
+                    android:id="@+id/product_name"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:text="CLOTH TITLE"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:textSize="20sp"
+                    />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Qty: 1"
+                        android:fontFamily="@font/sourcesanspro_regular"
+                        android:textStyle="italic"
+                        android:textSize="15sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/discount_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$657744.00"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorPrimary"
+                        android:fontFamily="@font/sourcesanspro_bold"
+                        android:layout_marginStart="@dimen/size_ten"
+
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIZE"
+            android:textSize="23sp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_sizes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COLOR"
+            android:layout_marginTop="@dimen/size_ten"
+            android:textSize="23sp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                />
+
+
+        </LinearLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutQuanity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_ten"
+            android:layout_marginLeft="@dimen/size_ten"
+            android:layout_marginRight="@dimen/size_ten"
+            >
+
+            <EditText
+                android:id="@+id/quantity_editxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Quantity"
+                android:inputType="number"
+                android:fontFamily="@font/sourcesanspro_regular"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/edit_cart_btn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/colorPrimary"
+            android:text="Save"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:textSize="23sp"
+            android:layout_gravity="bottom|center"
+
+            />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+
+

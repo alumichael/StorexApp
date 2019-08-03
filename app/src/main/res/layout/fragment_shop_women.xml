@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/women_wear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/women_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#f7a07a"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/size_six"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="WOMEN"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="40sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="OUTWEAR"
+                android:textColor="@color/colorWhite"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="19sp"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:elevation="@dimen/size_four"
+        android:background="@color/colorToolbar"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center_vertical"
+            android:padding="@dimen/size_eight"
+            android:weightSum="5"
+            >
+            <TextView
+                android:id="@+id/all_product_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="All Product"
+                android:textColor="@color/colorOnClickWomen"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/jean_search_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Jean"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/tshirt_search_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="T-Shirts"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/shoe_search_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Shoe"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="18sp"
+                />
+            <TextView
+                android:id="@+id/accessories_search_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Accesories"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textSize="18sp"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_thirty"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallPulseIndicator" />
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_women_wear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager" />
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</LinearLayout>

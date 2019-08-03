@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/filter_sheet_layout"
+    android:padding="@dimen/size_four">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SIZE"
+        android:textSize="23sp"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textColor="@color/colorPrimary"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+       >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_sizes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+           />
+
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="COLOR"
+        android:layout_marginTop="@dimen/size_ten"
+        android:textSize="23sp"
+        android:fontFamily="@font/sourcesanspro_regular"
+        android:textColor="@color/colorPrimary"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+           />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

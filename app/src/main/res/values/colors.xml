@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#454545</color>
+    <color name="colorPrimaryDark">#313131</color>
+    <color name="colorAccent">#efb961</color>
+    <color name="colorAccentEnd">#E0A037</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhiteGrey">#E2E1E1</color>
+    <color name="colorDeepGreen">#024102</color>
+
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="colorToolbar">#f2f2f2</color>
+    <color name="colorOnClickMen">#80bec3</color>
+    <color name="colorOnClickWomen">#de9575</color>
+    <color name="colorNew">#b0d39b</color>
+
+    <color name="dot_dark_screen1">#efb961</color>
+    <color name="dot_dark_screen2">#efb961</color>
+    <color name="dot_dark_screen3">#efb961</color>
+    <color name="dot_light_screen1">#E0A037</color>
+    <color name="dot_light_screen2">#E0A037</color>
+    <color name="dot_light_screen3">#E0A037</color>
+
+
+    <color name="blue">#072379</color>
+    <color name="purple">#680779</color>
+    <color name="black">#0C0C0C</color>
+    <color name="red">#FF001E</color>
+    <color name="magenta">#C2185B</color>
+
+</resources>

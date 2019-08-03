@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">storex</string>
+
+    <string name="facebook_app_id">2376417462616993</string>
+    <string name="fb_login_protocol_scheme">fb2376417462616993</string>
+    <string name="title_activity_dashboard">storex</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Storex Mobile</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="mode_of_payment">
+        <item> Mode of Payment </item>
+        <item> Debit or Credit Card </item>
+        <item> Paypal </item>
+
+    </string-array>
+
+
+
+</resources>
