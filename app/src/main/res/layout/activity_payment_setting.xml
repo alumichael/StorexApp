@@ -26,120 +26,166 @@
             app:popupTheme="@style/MyPopupTheme"
             app:theme="@style/MyToolBarTheme"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:title="PAYMENT INFORMATION"
+            app:title="Payment Info"
             />
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        android:padding="@dimen/size_ten"
+        android:layout_gravity="center"
         android:layout_weight="1"
         >
 
-        <Spinner
-            android:id="@+id/payment_source_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutCardNo"
+        <com.stripe.android.view.CardInputWidget
+            android:id="@+id/card_input_widget"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_ten"
-            android:layout_marginLeft="@dimen/size_ten"
-            android:layout_marginRight="@dimen/size_ten"
-            >
-
-            <EditText
-                android:id="@+id/card_no_editxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Card Number e.g 687567899877..."
-                android:inputType="text"
-                android:fontFamily="@font/sourcesanspro_regular"
-                />
+            android:visibility="gone"/>
 
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutExpDate"
+        <LinearLayout
+            android:id="@+id/local_design_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_ten"
-            android:layout_marginLeft="@dimen/size_ten"
-            android:layout_marginRight="@dimen/size_ten"
+            android:orientation="vertical"
+            android:padding="@dimen/size_ten"
+            android:layout_weight="1"
+            android:visibility="visible"
+
             >
 
-            <EditText
-                android:id="@+id/exp_date_editxt"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Expiry e.g 07/19"
-                android:inputType="text"
-                android:fontFamily="@font/sourcesanspro_regular"
-                />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/paypal_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/paypal"/>
+                <ImageView
+                    android:id="@+id/visa_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/visacard"/>
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutCardNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_ten"
+                android:layout_marginLeft="@dimen/size_ten"
+                android:layout_marginRight="@dimen/size_ten"
+                >
+
+                <EditText
+                    android:id="@+id/card_no_editxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Card Number e.g 687567899877..."
+                    android:inputType="text"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    />
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/inputLayoutCVV_Code"
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutExpDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_ten"
+                android:layout_marginLeft="@dimen/size_ten"
+                android:layout_marginRight="@dimen/size_ten"
+                >
+
+                <EditText
+                    android:id="@+id/exp_date_editxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Expiry e.g 07/19"
+                    android:inputType="text"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inputLayoutCVV_Code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_ten"
+                android:layout_marginLeft="@dimen/size_ten"
+                android:layout_marginRight="@dimen/size_ten"
+                >
+
+                <EditText
+                    android:id="@+id/cvveditxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="CVV e.g 123"
+                    android:inputType="text"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_ten"
-            android:layout_marginLeft="@dimen/size_ten"
-            android:layout_marginRight="@dimen/size_ten"
-            >
-
-            <EditText
-                android:id="@+id/cvveditxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="CVV e.g 123"
-                android:inputType="text"
-                android:fontFamily="@font/sourcesanspro_regular"
-                />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ship To"
-        android:fontFamily="@font/sourcesanspro_bold"
-        android:textColor="@color/colorPrimary"
-        android:layout_margin="10dp"
-        android:textSize="20sp"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLayoutShipCountry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_ten"
-        android:layout_marginLeft="@dimen/size_ten"
-        android:layout_marginRight="@dimen/size_ten"
-        >
-
-        <EditText
-            android:id="@+id/ship_country_editxt"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Location Address"
-            android:inputType="text"
-            android:fontFamily="@font/sourcesanspro_regular"
+            android:text="Ship To"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:textColor="@color/colorPrimary"
+            android:layout_margin="10dp"
+            android:textSize="20sp"
             />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutShipCountry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_ten"
+            android:layout_marginLeft="@dimen/size_ten"
+            android:layout_marginRight="@dimen/size_ten"
+            >
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/ship_country_editxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Location Address in the Region"
+                android:inputType="text"
+                android:fontFamily="@font/sourcesanspro_regular"
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi1"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_thirty"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:indicatorColor="@color/colorAccent"
+        app:indicatorName="BallPulseIndicator" />
     <Button
         android:id="@+id/update_payment_detail_btn"
         android:layout_width="match_parent"

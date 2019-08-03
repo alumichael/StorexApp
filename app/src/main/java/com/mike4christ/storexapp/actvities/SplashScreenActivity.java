@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         //i removed ! just to test, i will replace back
-        if (userPreferences.isFirstTimeLaunch()) {
+        if (!userPreferences.isFirstTimeLaunch()) {
 
             fromLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_from_left);
             blink = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.blink);
@@ -60,7 +60,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 public void run() {
                     try {
                         sleep(1500);
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        startActivity(new Intent(getApplicationContext(), WelcomeSlideActivity.class));
                         finish();
                     } catch (InterruptedException e) {
                         e.printStackTrace();

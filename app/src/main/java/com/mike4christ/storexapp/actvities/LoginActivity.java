@@ -157,7 +157,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
             Validation();
 
-            showMessage("Login Successfully");
         }else if(view.getId()==R.id.fblogin_button){
 
             fblogin_button.setReadPermissions(Arrays.asList("public_profile","email"));

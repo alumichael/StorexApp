@@ -1,5 +1,17 @@
 package com.mike4christ.storexapp.retrofit_interface;
 
+
+
+/*
+* Hi! here is my API Client Class where all
+* endpoint are being called
+*
+*
+*
+*
+*
+* */
+
 import com.mike4christ.storexapp.models.customer.Attribute;
 import com.mike4christ.storexapp.models.customer.AppEntryModel.FbTokenData;
 import com.mike4christ.storexapp.models.customer.AppEntryModel.LoginGetData;
@@ -14,8 +26,9 @@ import com.mike4christ.storexapp.models.customer.CartModels.ShippingRegionDetail
 import com.mike4christ.storexapp.models.customer.OrderModel.CreateOrder;
 import com.mike4christ.storexapp.models.customer.OrderModel.GetOrderAddress;
 import com.mike4christ.storexapp.models.customer.OrderModel.GetOrderId;
+import com.mike4christ.storexapp.models.customer.OrderModel.GetOrderList;
+import com.mike4christ.storexapp.models.customer.OrderModel.Order_Detail;
 import com.mike4christ.storexapp.models.customer.OrderModel.PutOrderAddress;
-import com.mike4christ.storexapp.models.customer.OrderModel.taxModel;
 import com.mike4christ.storexapp.models.customer.Product.ProductModel_Obj;
 import com.mike4christ.storexapp.models.customer.Product.ProductDetailModel;
 import com.mike4christ.storexapp.models.customer.AppEntryModel.RegGetData;
@@ -87,14 +100,11 @@ public interface ApiInterface {
     @POST("orders")
     Call<GetOrderId> order_id(CreateOrder createOrder);
 
+    @GET("orders/inCustomer")
+    Call<List<GetOrderList>> getOrder_info(@Header("USER-KEY") String value);
 
-  /*
-/shipping/regions
-/shipping/regions/{shipping_region_id}
-/stripe/charge
-/tax/{tax_id}
-    //remove a specifi product in cart
-    /shoppingcart/removeProduct/{item_id}*/
+    @GET("orders/{order_id}")
+    Call<List<Order_Detail>> getOrder_detail(@Header("USER-KEY") String value,@Path("order_id") int order_id);
 
 
 

@@ -53,7 +53,7 @@ public class WelcomeSlideActivity extends BaseActivity implements View.OnClickLi
     ArrayList<String> description_txt=new ArrayList<>(Arrays.asList(
             "Enjoy storex app in online marketing",
             "Checkout Cart for any item of your choice",
-            "We are Here for you oooooooooooooooo"));
+            "We drop you item at your door step"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

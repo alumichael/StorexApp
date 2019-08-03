@@ -103,7 +103,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sourcesanspro_regular"
-                    android:text="4"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp" />
 
@@ -130,7 +129,17 @@
                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="Placed on Wednesday,\nDecember 30,02.2014"
+                   android:text="Order Placed on "
+                   android:gravity="center"
+                   android:textColor="@color/colorPrimary"
+                   android:textSize="18sp"
+                   android:layout_margin="@dimen/size_ten"
+                   />
+               <TextView
+                   android:id="@+id/place_date"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="30,02.2014"
                    android:gravity="center"
                    android:textColor="@color/colorPrimary"
                    android:textSize="18sp"
@@ -169,6 +178,7 @@
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_tag"
                         android:layout_margin="8dp"
+
                         />
 
 
@@ -219,13 +229,13 @@
                         android:textColor="@color/colorPrimary"
                         android:textSize="18sp" />
 
-                    <ImageView
+                    <!--<ImageView
                         android:id="@+id/carryout_img"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:srcCompat="@drawable/ic_tag"
                         android:layout_margin="8dp"
-                        />
+                        />-->
 
 
                 </LinearLayout>
@@ -258,6 +268,7 @@
                 android:textSize="15sp"
                 />
             <Button
+                android:id="@+id/detail_btn"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

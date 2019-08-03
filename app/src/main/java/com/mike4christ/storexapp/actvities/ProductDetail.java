@@ -433,9 +433,9 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
                     return;
                 }
-
-                 String name=response.body().get(0).getName();
-                showMessage(name+" is saved to Cart(Bag)");
+                  int len=response.body().size();
+                 String name=response.body().get(len-1).getName();
+                showMessage("Item is saved to Cart(Bag)");
                 Log.i("ProductName",name);
 
                 progressbar.setVisibility(View.GONE);

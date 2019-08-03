@@ -52,8 +52,8 @@
          <com.stripe.android.view.CardInputWidget
              android:id="@+id/card_input_widget"
              android:layout_width="match_parent"
-             android:layout_weight="1"
-             android:layout_height="0dp" />
+             android:layout_height="wrap_content" />
+
 
          <LinearLayout
              android:id="@+id/local_design_layout"
@@ -179,7 +179,7 @@
                  android:id="@+id/ship_country_editxt"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 android:hint="Location Address"
+                 android:hint="Location Address in the Region"
                  android:inputType="text"
                  android:fontFamily="@font/sourcesanspro_regular"
                  />

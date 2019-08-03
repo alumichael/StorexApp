@@ -168,7 +168,7 @@ public class OrderAddrFragment extends Fragment implements View.OnClickListener{
         mStateEditxt.setText(userPreferences.getUserState());
 
         mCountryEditxt.setText(userPreferences.getUserCountry());
-        mCityEditxt.setText(userPreferences.getUserCity());
+
         mZipcodeEditxt.setText(userPreferences.getUserPostalCode());
 
 
@@ -379,7 +379,7 @@ public class OrderAddrFragment extends Fragment implements View.OnClickListener{
 
            //creating Order
             if(!userPreferences.getUserCartId().equals("")) {
-                CreateOrder createOrder=new CreateOrder(userPreferences.getUserCartId(),region_Id,1);
+                CreateOrder createOrder=new CreateOrder(userPreferences.getUserCartId(),0,1);
 
                 Call<GetOrderId> call2 = client.order_id(createOrder);
                 call2.enqueue(new Callback<GetOrderId>() {
@@ -497,12 +497,6 @@ public class OrderAddrFragment extends Fragment implements View.OnClickListener{
         Snackbar.make(mCartAddrLayout, s, Snackbar.LENGTH_LONG).show();
     }
 
-    private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
-    }
 
     @Override
     public void onClick(View view) {

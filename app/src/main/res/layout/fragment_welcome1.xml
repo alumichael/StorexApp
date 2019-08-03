@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:scaleType="centerCrop"
-        android:src="@drawable/bgs_slide1" />
+        android:src="@drawable/bgs_new_slide1" />
 
 
 </FrameLayout>

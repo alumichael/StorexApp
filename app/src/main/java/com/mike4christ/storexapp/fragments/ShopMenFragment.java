@@ -131,8 +131,6 @@ public class ShopMenFragment extends Fragment implements SwipeRefreshLayout.OnRe
                 layoutManager = new LinearLayoutManager(getApplicationContext());
                 mRecyclerMenWear.setLayoutManager(layoutManager);
                 productAdapter = new ProductAdapter(getContext(),modelList);
-
-
                 mRecyclerMenWear.setAdapter(productAdapter);
                 productAdapter.notifyDataSetChanged();
 

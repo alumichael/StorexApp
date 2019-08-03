@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,38 +16,49 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+
 import com.google.android.material.textfield.TextInputLayout;
 import com.mike4christ.storexapp.R;
+import com.stripe.android.view.CardInputWidget;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PaymentSettingActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolBar;
-    
+
     @BindView(R.id.payment_setting_layout)
-    LinearLayout mPaymentSettingLayout;
-    @BindView(R.id.payment_source_spinner)
-    Spinner mPaymentSourceSpinner;
+    LinearLayout paymentSettingLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+   /* @BindView(R.id.card_input_widget)
+    CardInputWidget cardInputWidget;*/
+    @BindView(R.id.local_design_layout)
+    LinearLayout localDesignLayout;
+    @BindView(R.id.paypal_btn)
+    ImageView paypalBtn;
+    @BindView(R.id.visa_btn)
+    ImageView visaBtn;
     @BindView(R.id.inputLayoutCardNo)
-    TextInputLayout mInputLayoutCardNo;
+    TextInputLayout inputLayoutCardNo;
     @BindView(R.id.card_no_editxt)
-    EditText mCardNoEditxt;
+    EditText cardNoEditxt;
     @BindView(R.id.inputLayoutExpDate)
-    TextInputLayout mInputLayoutExpDate;
+    TextInputLayout inputLayoutExpDate;
     @BindView(R.id.exp_date_editxt)
-    EditText mExpDateEditxt;
+    EditText expDateEditxt;
     @BindView(R.id.inputLayoutCVV_Code)
-    TextInputLayout mInputLayoutCVVCode;
+    TextInputLayout inputLayoutCVVCode;
     @BindView(R.id.cvveditxt)
-    EditText mCvveditxt;
+    EditText cvveditxt;
     @BindView(R.id.inputLayoutShipCountry)
-    TextInputLayout mInputLayoutShipCountry;
+    TextInputLayout inputLayoutShipCountry;
     @BindView(R.id.ship_country_editxt)
-    EditText mShipCountryEditxt;
+    EditText shipCountryEditxt;
+    @BindView(R.id.avi1)
+    com.wang.avi.AVLoadingIndicatorView avi1;
     @BindView(R.id.update_payment_detail_btn)
-    Button mUpdatePaymentDetailBtn;
+    Button updatePaymentDetailBtn;
+  
 
 
     String modePaymentString;
@@ -56,7 +68,7 @@ public class PaymentSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_setting);
         ButterKnife.bind( this);
-        customizeToolbar(toolBar);
+        customizeToolbar(toolbar);
     }
 
     public void customizeToolbar(Toolbar toolbar){

@@ -8,6 +8,7 @@ public class Constant {
     public static final String USER_PREF = "prefs";
     public static final int PRIVATE_MODE = 0;
     public static final String PRODUCT_ID = "product_id";
+    public static final String ORDER_ID = "order_id";
     public static final String COLOR_ATTR = "color_attr";
     public static final String SIZE_ATTR = "size_attr";
 

@@ -1,5 +1,13 @@
 package com.mike4christ.storexapp.retrofit_interface;
-
+/*
+ * Hi! here is my Retrofit Service generator Class where all i provided centralized
+ * endpoint connections network
+ *
+ *
+ *
+ *
+ *
+ * */
 
 import com.mike4christ.storexapp.Constant;
 

@@ -73,8 +73,8 @@ public class CartFragment extends Fragment {
     CartAdapter cartAdapter;
     LinearLayoutManager layoutManager;
     String subtotalAmount;
-    int shipping=0;
-    int total_amount=0;
+    double shipping=0.0;
+    double total_amount=0.0;
     String currency="$";
     Fragment fragment;
     NetworkConnection networkConnection = new NetworkConnection();
@@ -131,6 +131,7 @@ public class CartFragment extends Fragment {
                     }
                     List<CartList> cartList = response.body();
                     cartListSize = cartList.size();
+                    userPreferences.setUserCartSize(cartListSize);
                     if (cartListSize > 1) {
                         String item_txt = " items";
                         String cart_countStr = String.valueOf(cartListSize);
@@ -198,8 +199,8 @@ public class CartFragment extends Fragment {
                     String subtotalAmount_txt=String.valueOf(subtotalAmount);
                     mSubtotalTxt.setText(currency+subtotalAmount_txt);
                     String shipping_txt=String.valueOf(shipping);
-                    mShippingCostTxt.setText(shipping_txt);
-                    int total_amount= Integer.parseInt(subtotalAmount+shipping);
+                    mShippingCostTxt.setText(currency+shipping_txt);
+                    double total_amount= Integer.parseInt(subtotalAmount+shipping);
                     String total_amt_txt=String.valueOf(total_amount);
                     mTotalCostTxt.setText(currency+total_amt_txt);
 

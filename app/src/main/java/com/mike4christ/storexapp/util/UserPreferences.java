@@ -268,6 +268,15 @@ public class UserPreferences {
         return sharedPreferences.getString("orderId", "");
     }
 
+    public void setUserOrderSize(int orderSize) {
+        editor.putInt("orderSize", orderSize);
+        editor.commit();
+    }
+
+    public int getUserOrderSize() {
+        return sharedPreferences.getInt("orderSize", 0);
+    }
+
 
 
     public void setUserCartId(String userCartId) {
@@ -277,6 +286,16 @@ public class UserPreferences {
 
     public String getUserCartId() {
         return sharedPreferences.getString("cart_id", "");
+    }
+
+
+    public void setUserCartSize(int cartSize) {
+        editor.putInt("cartSize", cartSize);
+        editor.commit();
+    }
+
+    public int getUserCartSize() {
+        return sharedPreferences.getInt("cartSize", 0);
     }
 
 

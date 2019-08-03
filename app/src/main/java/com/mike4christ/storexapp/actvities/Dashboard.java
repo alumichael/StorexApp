@@ -40,6 +40,17 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
+/*
+ * Hi! here my Dashboard Activity Class, it the Main Board functions for
+ * the Whole mobile operations
+ *
+ *
+ *
+ *
+ *
+ * */
+
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
@@ -74,6 +85,8 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         userPreferences=new UserPreferences(this);
         ButterKnife.bind(this);
+        String cart_count= String.valueOf(userPreferences.getUserCartSize());
+        mCountTvLayout.setText(cart_count);
 
         customizeToolbar(toolbar);
         setClick();

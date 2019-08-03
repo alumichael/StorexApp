@@ -15,7 +15,14 @@ import com.mike4christ.storexapp.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+/*
+ * Hi! here is my Fashion Inspiration Activity
+ *
+ *
+ *
+ *
+ *
+ * */
 
 public class InspirationFashion extends AppCompatActivity {
 
@@ -34,4 +41,9 @@ public class InspirationFashion extends AppCompatActivity {
         ButterKnife.bind( this);
 
     }
+
+    private  void init(){
+
+    }
+
 }

@@ -36,8 +36,16 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
+/*
+ * Hi! here is my User registration class defined for user registration on the
+ * platform
+ *
+ *
+ *
+ *
+ *
+ * */
 
 public class RegistrationActivity extends BaseActivity implements View.OnClickListener{
 
@@ -93,9 +101,9 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
     public void customizeToolbar(Toolbar toolbar){
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+
         //setting Elevation for > API 21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(10f);
