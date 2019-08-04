@@ -84,6 +84,9 @@
         <activity android:name=".actvities.InspirationLifeDetail" />
         <activity android:name=".actvities.InspirationFashionDetail" />
         <activity android:name=".actvities.ProductDetail" />
+        <activity android:name=".fragments.CartEditFragment" />
+        <activity android:name=".fragments.OrderAddrFragment" />
+        <activity android:name=".fragments.CartPaymentFragment" />
     </application>
 
 </manifest>

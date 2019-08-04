@@ -57,7 +57,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             Log.i("SuccessAdapt",String.valueOf(orderOption.getOrderId()));
         }
 
-        holder.orderId.setText(orderOption.getOrderId());
+        holder.orderId.setText(orderOption.getOrderId().toString());
         holder.amountTxt.setText(currency+orderOption.getTotalAmount());
         holder.placeDate.setText(orderOption.getCreatedOn());
 

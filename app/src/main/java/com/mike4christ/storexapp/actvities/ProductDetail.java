@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +35,9 @@ import com.mike4christ.storexapp.R;
 import com.mike4christ.storexapp.adapters.ColorAdapter;
 import com.mike4christ.storexapp.adapters.ProductAdapter;
 import com.mike4christ.storexapp.adapters.SizeAdapter;
+import com.mike4christ.storexapp.fragments.CartFragment;
+import com.mike4christ.storexapp.fragments.CartPaymentFragment;
+import com.mike4christ.storexapp.fragments.StoreFragment;
 import com.mike4christ.storexapp.models.customer.Attribute;
 import com.mike4christ.storexapp.models.customer.CartModels.AddCartResponse;
 import com.mike4christ.storexapp.models.customer.CartModels.AddtoCart;
@@ -97,6 +103,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
     String attribute,currency="$";
     LinearLayoutManager linearLayoutManager,linearLayoutManager2;
     UserPreferences userPreferences;
+    Fragment fragment;
 
     ApiInterface client= ServiceGenerator.createService(ApiInterface.class);
     NetworkConnection networkConnection=new NetworkConnection();
@@ -244,7 +251,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         final CharSequence originalTitle = toolbar.getTitle();
 
         // Temporarily modify title and subtitle to help detecting each
-        toolbar.setTitle("ORDER STATUS");
+        toolbar.setTitle("Product Detail");
 
         for(int i = 0; i < toolbar.getChildCount(); i++){
             View view = toolbar.getChildAt(i);
@@ -253,7 +260,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
                 TextView textView = (TextView) view;
 
 
-                if(textView.getText().equals("ORDER STATUS")){
+                if(textView.getText().equals("Product Detail")){
                     // Customize title's TextView
                     Toolbar.LayoutParams params = new Toolbar.LayoutParams(Toolbar.LayoutParams.WRAP_CONTENT, Toolbar.LayoutParams.MATCH_PARENT);
                     params.gravity = Gravity.CENTER_HORIZONTAL;
@@ -402,6 +409,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
     }
 
     private void addtoCart(){
+
         progressbar.setVisibility(View.VISIBLE);
         //get client and call object for request
        if(userPreferences.getUserCartId().equals("")){
@@ -435,10 +443,13 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
                 }
                   int len=response.body().size();
                  String name=response.body().get(len-1).getName();
+
+                 userPreferences.setUserCartSize(len);
                 showMessage("Item is saved to Cart(Bag)");
                 Log.i("ProductName",name);
 
                 progressbar.setVisibility(View.GONE);
+                startActivity(new Intent(ProductDetail.this,Dashboard.class));
 
             }
 
@@ -452,6 +463,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
     }
 
     private void getCarId(){
+
 
         //Generate Uniqui ID for Cart
         Call<CartId> call=client.cartUniquieId();
@@ -474,8 +486,10 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
                     return;
                 }
+
                 cart_id=response.body().getCartId();
                 userPreferences.setUserCartId(cart_id);
+
 
                 Log.i("CardId",cart_id);
 
@@ -488,6 +502,14 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
             }
         });
 
+    }
+
+    //Method to set fragment immediately Onclick
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.fragment_container, fragment);
+        ft.commit();
     }
 
 

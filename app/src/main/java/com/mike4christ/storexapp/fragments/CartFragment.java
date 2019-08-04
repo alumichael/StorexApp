@@ -1,5 +1,6 @@
 package com.mike4christ.storexapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -72,17 +74,19 @@ public class CartFragment extends Fragment {
     int cartListSize;
     CartAdapter cartAdapter;
     LinearLayoutManager layoutManager;
-    String subtotalAmount;
+    double subtotalAmount;
     double shipping=0.0;
     double total_amount=0.0;
     String currency="$";
     Fragment fragment;
+    List<CartList> cartList;
     NetworkConnection networkConnection = new NetworkConnection();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_cart, container, false);
         ButterKnife.bind(this,view);
+
         userPreferences=new UserPreferences(getContext());
         progressInit.setVisibility(View.VISIBLE);
         cart_non_empty_Layout.setVisibility(View.GONE);
@@ -129,9 +133,9 @@ public class CartFragment extends Fragment {
 
                         return;
                     }
-                    List<CartList> cartList = response.body();
+                    cartList = response.body();
                     cartListSize = cartList.size();
-                    userPreferences.setUserCartSize(cartListSize);
+                    //userPreferences.setUserCartSize(cartListSize);
                     if (cartListSize > 1) {
                         String item_txt = " items";
                         String cart_countStr = String.valueOf(cartListSize);
@@ -195,14 +199,19 @@ public class CartFragment extends Fragment {
 
                         return;
                     }
-                    subtotalAmount = response.body().getTotalAmount();
-                    String subtotalAmount_txt=String.valueOf(subtotalAmount);
-                    mSubtotalTxt.setText(currency+subtotalAmount_txt);
-                    String shipping_txt=String.valueOf(shipping);
-                    mShippingCostTxt.setText(currency+shipping_txt);
-                    double total_amount= Integer.parseInt(subtotalAmount+shipping);
-                    String total_amt_txt=String.valueOf(total_amount);
-                    mTotalCostTxt.setText(currency+total_amt_txt);
+                    try {
+                        subtotalAmount = Double.parseDouble(response.body().getTotalAmount());
+                        String subtotalAmount_txt = String.valueOf(subtotalAmount);
+                        mSubtotalTxt.setText(currency + subtotalAmount_txt);
+                        double shipping_txt = shipping;
+                        mShippingCostTxt.setText(currency + shipping_txt);
+                        double total_amount = subtotalAmount + shipping;
+                        String total_amt_txt = String.valueOf(total_amount);
+                        mTotalCostTxt.setText(currency + total_amt_txt);
+                        userPreferences.setTotalAmount(total_amt_txt);
+                    }catch (Exception e){
+                        showMessage("Pick an Item");
+                    }
 
                 }
 
@@ -216,6 +225,7 @@ public class CartFragment extends Fragment {
 
         }else {
             showMessage("Cart Empty");
+            progressInit.setVisibility(View.GONE);
             cart_empty_layout.setVisibility(View.VISIBLE);
             cart_non_empty_Layout.setVisibility(View.GONE);
 
@@ -224,57 +234,15 @@ public class CartFragment extends Fragment {
     }
 
     private void checkout(){
-        mCheckoutBtn.setVisibility(View.GONE);
-        mAvi1.setVisibility(View.VISIBLE);
-        Call<List<CartList>> call2 = client.empty_cart(userPreferences.getUserCartId());
-        call2.enqueue(new Callback<List<CartList>>() {
-            @Override
-            public void onResponse(Call<List<CartList>> call, Response<List<CartList>> response) {
 
-                if (!response.isSuccessful()) {
-                    try {
-                        APIError apiError = ErrorUtils.parseError(response);
-
-                        showMessage("Fetch Failed: " + apiError.getMessage());
-                        Log.i("Invalid Fetch", apiError.getMessage());
-                        //Log.i("Invalid Entry", response.errorBody().toString());
-
-                    } catch (Exception e) {
-                        Log.i("Fetch Failed", e.getMessage());
-                        showMessage("Fetch " + " " + e.getMessage());
-
-                    }
-
-                    return;
-                }
-                mCheckoutBtn.setVisibility(View.VISIBLE);
-                mAvi1.setVisibility(View.GONE);
-
-                showMessage("Cart Checked Out");
-
-                fragment=new OrderAddrFragment();
-                showFragment(fragment);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<CartList>> call, Throwable t) {
-                showMessage("Fetch failed, please try again " + t.getMessage());
-                Log.i("GEtError", t.getMessage());
-            }
-        });
+        startActivity(new Intent(getContext(),OrderAddrFragment.class));
 
     }
 
-    private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
-    }
+
 
     public void showMessage(String s) {
-        Snackbar.make(mCartLayout, s, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(getContext(), s, Snackbar.LENGTH_LONG).show();
     }
 
 

@@ -23,13 +23,17 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.LoggingBehavior;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mike4christ.storexapp.BaseActivity;
+import com.mike4christ.storexapp.BuildConfig;
 import com.mike4christ.storexapp.Constant;
 import com.mike4christ.storexapp.R;
+import com.mike4christ.storexapp.models.customer.AppEntryModel.FbTokenData;
 import com.mike4christ.storexapp.models.customer.AppEntryModel.LoginGetData;
 import com.mike4christ.storexapp.models.customer.AppEntryModel.LoginPostData;
 import com.mike4christ.storexapp.models.customer.ErrorModel.APIError;
@@ -40,17 +44,31 @@ import com.mike4christ.storexapp.util.NetworkConnection;
 import com.mike4christ.storexapp.util.UserPreferences;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+
+/*
+ * Hi! here my Login Activity Class, Please Note that the
+ * Fire Auth is still pending for now
+ * as i have requested for app_secret code
+ *
+ *
+ *
+ *
+ * */
+
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
@@ -164,15 +182,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             fblogin_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
+                    if (BuildConfig.DEBUG) {
+                        FacebookSdk.setIsDebugEnabled(true);
+                        FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
+                    }
+
                     // App code
                     alert();
 
-                    //userPreferences.setFacebookToken(accesstoken.toString());
-                   // Log.i("AccessToken",accesstoken.toString());
-                    //FbTokenData fbTokenData=new FbTokenData(accesstoken);
+                   String accessStrg=loginResult.getAccessToken().getToken();
+                   // userPreferences.setFacebookToken(accesstoken.toString());
+                   // Log.i("AccessToken",access.toString());
+                 /*   //FbTokenData fbTokenData=new FbTokenData(accesstoken);
                     //sentNetworkRequestFbLogin(fbTokenData);
-
-
+//HmacSHA256 implementation
+                        String app_secret="5db18069d811865ffca93291f1ec9b27";
+                    //$appsecret_proof= hash_hmac('sha256', $access_token, $app_secret);
+                    try {
+                        String p=hmacSHA256(accessStrg,app_secret);
+                        Log.i("AccessTokenP",p);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+*/
                 }
 
                 @Override
@@ -212,7 +244,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
 
     }
+    private String hmacSHA256(String data,String accessStrg) throws UnsupportedEncodingException {
 
+        SecretKeySpec secretKey = null;
+        try {
+            secretKey = new SecretKeySpec(accessStrg.getBytes("UTF-8"), "HmacSHA256");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Mac mac = null;
+        try {
+            mac = Mac.getInstance("HmacSHA256");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        try {
+            mac.init(secretKey);
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        }
+        byte[] hmacData = mac.doFinal(data.getBytes("UTF-8"));
+
+        return  String.format("%064x", new java.math.BigInteger(1, hmacData));
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -297,9 +351,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                         showMessage("Fetch Failed: " + apiError.getMessage());
                         Log.i("Invalid Fetch", apiError.getMessage());
                         //Log.i("Invalid Entry", response.errorBody().toString());
+                        loginBtn.setVisibility(View.VISIBLE);
+                        progressView.setVisibility(View.GONE);
 
                     } catch (Exception e) {
                         Log.i("Fetch Failed", e.getMessage());
+                        loginBtn.setVisibility(View.VISIBLE);
+                        progressView.setVisibility(View.GONE);
                         showMessage("Fetch " + " " + e.getMessage());
 
                     }
@@ -328,6 +386,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 loginBtn.setVisibility(View.VISIBLE);
                 progressView.setVisibility(View.GONE);
                 startActivity(new Intent(LoginActivity.this, Dashboard.class));
+                finish();
 
             }
 
@@ -335,8 +394,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             public void onFailure(Call<LoginGetData> call, Throwable t) {
                 showMessage("Login Failed "+t.getMessage());
                 Log.i("GEtError",t.getMessage());
-                loginBtn.setVisibility(View.GONE);
-                progressView.setVisibility(View.VISIBLE);
+                loginBtn.setVisibility(View.VISIBLE);
+                progressView.setVisibility(View.GONE);
             }
         });
 

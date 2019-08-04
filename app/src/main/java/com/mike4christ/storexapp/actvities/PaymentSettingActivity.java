@@ -58,10 +58,7 @@ public class PaymentSettingActivity extends AppCompatActivity {
     com.wang.avi.AVLoadingIndicatorView avi1;
     @BindView(R.id.update_payment_detail_btn)
     Button updatePaymentDetailBtn;
-  
 
-
-    String modePaymentString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +71,9 @@ public class PaymentSettingActivity extends AppCompatActivity {
     public void customizeToolbar(Toolbar toolbar){
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
         //setting Elevation for > API 21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(10f);

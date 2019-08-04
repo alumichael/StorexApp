@@ -44,6 +44,15 @@ public class UserPreferences {
         editor.commit();
     }
 
+    public String getTotalAmount() {
+        return sharedPreferences.getString("Total_Amount", "");
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        editor.putString("Total_Amount", totalAmount);
+        editor.commit();
+    }
+
     public String getSizeAttribute() {
         return sharedPreferences.getString(Constant.SIZE_ATTR, "");
     }
@@ -57,7 +66,7 @@ public class UserPreferences {
     public String getFacebookToken() {
         return sharedPreferences.getString(Constant.FACEBOOK_TOKEN, "");
     }
-    
+
 
     public String getString(String key, String defaultValue) {
         sharedPreferences = _context.getSharedPreferences(Constant.USER_PREF, 0);
@@ -273,10 +282,29 @@ public class UserPreferences {
         editor.commit();
     }
 
+    public String getUserLastOrder() {
+        return sharedPreferences.getString("lastOrder", "");
+    }
+
+
+    public void setUserLastOrder(String lastOrder) {
+        editor.putString("lastOrder", lastOrder);
+        editor.commit();
+    }
+
+    public String getUserLastOrderId() {
+        return sharedPreferences.getString("lastOderId", "");
+    }
+
+
+    public void setUserLastOrderId(String lastOderId) {
+        editor.putString("lastOderId", lastOderId);
+        editor.commit();
+    }
+
     public int getUserOrderSize() {
         return sharedPreferences.getInt("orderSize", 0);
     }
-
 
 
     public void setUserCartId(String userCartId) {

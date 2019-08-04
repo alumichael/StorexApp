@@ -65,7 +65,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
 
            String value=attrList.get(pos).getValue();
            userPreferences.setSizeAttribute(value);
-            Toast.makeText(context.getApplicationContext(),"Size Attribute: "+value+" is picked",Toast.LENGTH_LONG).show();
+            Toast.makeText(context.getApplicationContext(),"Size Attribute: "+value+" is picked",Toast.LENGTH_SHORT).show();
             Log.i("AttributeClicked ",value);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 holder.mAttrThumnail.setBackgroundTintList(ColorStateList.valueOf(Color.GREEN));
@@ -76,7 +76,7 @@ public class SizeAdapter extends RecyclerView.Adapter<SizeAdapter.MyViewHolder> 
 
         });
     }
-    
+
 
     @Override
     public int getItemCount() {

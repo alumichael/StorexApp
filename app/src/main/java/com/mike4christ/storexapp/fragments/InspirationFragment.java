@@ -16,6 +16,7 @@ import com.mike4christ.storexapp.actvities.InspirationLife;
 import com.mike4christ.storexapp.actvities.InspirationVideo;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class InspirationFragment extends Fragment implements View.OnClickListener{
@@ -37,9 +38,10 @@ public class InspirationFragment extends Fragment implements View.OnClickListene
     TextView mVideoTxt;
 
     String lifeStg="LIFE",fashionstg="FASHION",videoStg="VIDEO";
-
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_inspire, container, false);
+        ButterKnife.bind(this,view);
         setAction();
         return  view;
     }

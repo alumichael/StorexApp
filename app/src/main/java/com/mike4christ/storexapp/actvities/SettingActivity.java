@@ -17,19 +17,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mike4christ.storexapp.R;
-import com.mike4christ.storexapp.fragments.CartPaymentFragment;
 import com.mike4christ.storexapp.models.customer.CartModels.ShippingRegion;
 import com.mike4christ.storexapp.models.customer.ErrorModel.APIError;
 import com.mike4christ.storexapp.models.customer.ErrorModel.ErrorUtils;
-import com.mike4christ.storexapp.models.customer.OrderModel.CreateOrder;
 import com.mike4christ.storexapp.models.customer.OrderModel.GetOrderAddress;
-import com.mike4christ.storexapp.models.customer.OrderModel.GetOrderId;
 import com.mike4christ.storexapp.models.customer.OrderModel.PutOrderAddress;
 import com.mike4christ.storexapp.retrofit_interface.ApiInterface;
 import com.mike4christ.storexapp.retrofit_interface.ServiceGenerator;
@@ -47,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
-    /** ButterKnife Code **/
+
     @BindView(R.id.account_setting_layout)
     LinearLayout accountSettingLayout;
     @BindView(R.id.toolbar)
@@ -115,7 +109,7 @@ public class SettingActivity extends AppCompatActivity {
 
         if(networkConnection.isNetworkConnected(this)) {
             init();
-            regionSpinner();
+
             updateProfileBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -182,7 +176,7 @@ public class SettingActivity extends AppCompatActivity {
                 for(int i=0; i<shipping_region.size();i++){
                     region_Obj.add(shipping_region.get(i).getShippingRegion());
                 }
-
+                regionSpinner();
                 nonEmptyLayout.setVisibility(View.VISIBLE);
                 avi1.setVisibility(View.GONE);
 
@@ -283,10 +277,10 @@ public class SettingActivity extends AppCompatActivity {
             userPreferences.setUserCountry(countryEditxt.getText().toString());
             userPreferences.setUserShippingRegionId(region_Id);
 
+
             PutOrderAddress putOrderAddress=new PutOrderAddress(addr1Editxt.getText().toString(),
-                    addr2Editxt.getText().toString(),cityEditxt.getText().toString(),
-                    regionEditxt.getText().toString(),zipcodeEditxt.getText().toString(),cityEditxt.getText().toString(),
-                    region_Id);
+                    addr2Editxt.getText().toString(),cityEditxt.getText().toString(),regionEditxt.getText().toString(),
+                    zipcodeEditxt.getText().toString(),cityEditxt.getText().toString(),region_Id);
 
             Call<GetOrderAddress> call = client.putOrder_addr(userPreferences.getUserAccessToken(),putOrderAddress);
             call.enqueue(new Callback<GetOrderAddress>() {
@@ -300,10 +294,11 @@ public class SettingActivity extends AppCompatActivity {
                             showMessage("Fetch Failed: " + apiError.getMessage());
                             Log.i("Invalid Fetch", apiError.getMessage());
                             //Log.i("Invalid Entry", response.errorBody().toString());
-
+                            avi1.setVisibility(View.GONE);
                         } catch (Exception e) {
                             Log.i("Fetch Failed", e.getMessage());
                             showMessage("Fetch " + " " + e.getMessage());
+                            avi1.setVisibility(View.GONE);
 
                         }
 
@@ -327,6 +322,7 @@ public class SettingActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<GetOrderAddress> call, Throwable t) {
                     showMessage("Fetch failed, please try again " + t.getMessage());
+                    avi1.setVisibility(View.GONE);
                     Log.i("GEtError", t.getMessage());
                 }
             });
@@ -342,9 +338,9 @@ public class SettingActivity extends AppCompatActivity {
     public void customizeToolbar(Toolbar toolbar){
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+       // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
         //setting Elevation for > API 21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(10f);

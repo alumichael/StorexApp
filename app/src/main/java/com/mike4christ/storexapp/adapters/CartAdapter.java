@@ -6,12 +6,14 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,23 +22,38 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.mike4christ.storexapp.Constant;
 import com.mike4christ.storexapp.R;
+import com.mike4christ.storexapp.actvities.Dashboard;
 import com.mike4christ.storexapp.actvities.ProductDetail;
 import com.mike4christ.storexapp.fragments.CartEditFragment;
+import com.mike4christ.storexapp.fragments.CartFragment;
+import com.mike4christ.storexapp.fragments.CartPaymentFragment;
+import com.mike4christ.storexapp.fragments.OrderAddrFragment;
 import com.mike4christ.storexapp.models.customer.CartModels.CartList;
+import com.mike4christ.storexapp.models.customer.ErrorModel.APIError;
+import com.mike4christ.storexapp.models.customer.ErrorModel.ErrorUtils;
+import com.mike4christ.storexapp.retrofit_interface.ApiInterface;
 import com.mike4christ.storexapp.retrofit_interface.ItemClickListener;
+import com.mike4christ.storexapp.retrofit_interface.ServiceGenerator;
+import com.mike4christ.storexapp.util.UserPreferences;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
 
     private Context context;
     private List<CartList> cartList;
     Fragment fragment;
+    UserPreferences userPreferences;
 
 
     public CartAdapter(Context context, List<CartList> cartList) {
@@ -56,6 +73,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
         CartList cartOption = cartList.get(i);
+         userPreferences=new UserPreferences(context);
         
         String[] both=cartOption.getAttributes().split(",");
         String attriSize=both[0];
@@ -152,41 +170,88 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View view) {
 
-                FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-                FragmentTransaction ft = fragmentManager.beginTransaction();
-                ft.replace(R.id.fragment_container, CartEditFragment.newInstance(String.valueOf(cartList.get(i).getItemId()),
+
+                nextActivity(String.valueOf(cartList.get(i).getItemId()),
                         String.valueOf(cartList.get(i).getQuantity()),cartOption.getPrice(),
-                        attriColor,attriSize,cartOption.getName()));
-                ft.commit();
+                        attriColor,attriSize,cartOption.getName(),CartEditFragment.class);
 
             }
         });
 
-       /* holder.delete_cart.setOnClickListener(new View.OnClickListener() {
+        holder.delete_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                nextActivity(String.valueOf(cartList.get(i).getItemId()), CartEditFragment.class);
+                ApiInterface client= ServiceGenerator.createService(ApiInterface.class);
+                Call<ResponseBody> call2 = client.delete_item(cartOption.getItemId());
+                call2.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                        if (!response.isSuccessful()) {
+                            try {
+                                APIError apiError = ErrorUtils.parseError(response);
+
+                                showMessage("Fetch Failed: " + apiError.getMessage());
+                                Log.i("Invalid Fetch", apiError.getMessage());
+                                //Log.i("Invalid Entry", response.errorBody().toString());
+
+                            } catch (Exception e) {
+                                Log.i("Fetch Failed", e.getMessage());
+                                showMessage("Fetch " + " " + e.getMessage());
+
+                            }
+
+                            return;
+                        }
+
+                        showMessage("Item is Removed");
+                        //When item is deleted refresh the pref and the fragment
+                        int currentSize=userPreferences.getUserCartSize()-1;
+                        userPreferences.setUserCartSize(currentSize);
+                        fragment=new CartFragment();
+                        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
+                        FragmentTransaction ft = fragmentManager.beginTransaction();
+                        ft.replace(R.id.fragment_container,fragment);
+                        ft.commit();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        showMessage("Fetch failed, please try again " + t.getMessage());
+                        Log.i("GEtError", t.getMessage());
+                    }
+                });
+
 
             }
-        });*/
+        });
     }
 
-  /*  private void nextActivity(String id, Fragment fragment) {
+    private void nextActivity(String id,String qty,String price, String attriColor,String attriSize,String name, Class productActivityClass) {
+        Intent i = new Intent(context, productActivityClass);
+        i.putExtra(Constant.ITEM_ID, id);
+        i.putExtra(Constant.ITEM_QTY, qty);
+        i.putExtra(Constant.ITEM_PRICE, price);
+        i.putExtra(Constant.ITEM_COLOR, attriColor);
+        i.putExtra(Constant.ITEM_SIZE, attriSize);
+        i.putExtra(Constant.ITEM_NAME, name);
+        context.startActivity(i);
+    }
+    public void showMessage(String s) {
+        Toast.makeText(context, s, Snackbar.LENGTH_LONG).show();
+    }
 
-        FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
 
-    }*/
+
 
     @Override
     public int getItemCount() {
         return cartList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.product_thumnail)
         ImageView mProductThumnail;
@@ -212,17 +277,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             super(itemView);
             ButterKnife.bind(this, itemView);
 
-            itemView.setOnClickListener(this);
+           // itemView.setOnClickListener(this);
         }
 
        /* public void setItemClickListener(ItemClickListener itemClickListener) {
             this.itemClickListener = itemClickListener;
         }*/
 
-        @Override
+       /* @Override
         public void onClick(View view) {
             this.itemClickListener.onItemClick(this.getLayoutPosition());
-        }
+        }*/
         
     }
 }

@@ -26,7 +26,7 @@
             app:popupTheme="@style/MyPopupTheme"
             app:theme="@style/MyToolBarTheme"
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:title="ORDER STATUS"
+            app:title="Order Status"
             />
     </com.google.android.material.appbar.AppBarLayout>
 

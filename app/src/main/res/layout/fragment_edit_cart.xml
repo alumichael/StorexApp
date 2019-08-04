@@ -5,6 +5,26 @@
     android:id="@+id/edit_cart_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbar"
+            android:elevation="4dp"
+            android:foregroundGravity="center"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/MyPopupTheme"
+            app:theme="@style/MyToolBarTheme"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:title="storex"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
 
         android:layout_width="match_parent"
@@ -187,8 +207,8 @@
             android:background="@color/colorPrimary"
             android:text="Save"
             android:textColor="@color/colorWhite"
-            android:fontFamily="@font/sourcesanspro_bold"
-            android:textSize="23sp"
+            android:fontFamily="@font/sourcesanspro_semibold"
+            android:textSize="19sp"
             android:layout_gravity="bottom|center"
 
             />

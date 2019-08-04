@@ -59,6 +59,7 @@ public class OrderStatusActivity extends AppCompatActivity {
         userPreferences=new UserPreferences(this);
         ButterKnife.bind( this);
         getOderList();
+
         customizeToolbar(toolBar);
     }
 
@@ -90,7 +91,11 @@ public class OrderStatusActivity extends AppCompatActivity {
 
                 List<GetOrderList> orderList=response.body();
                 int ordersize=orderList.size();
+                int last_detail=ordersize-1;
                 userPreferences.setUserOrderSize(ordersize);
+                userPreferences.setUserLastOrder(orderList.get(last_detail).getCreatedOn());
+                userPreferences.setUserLastOrderId(String.valueOf(orderList.get(last_detail).getOrderId()));
+
                 Log.i("Re-Success1",orderList.toString());
 
                 Log.i("Re-SuccessSize", String.valueOf(orderList.size()));
@@ -119,9 +124,9 @@ public class OrderStatusActivity extends AppCompatActivity {
     public void customizeToolbar(Toolbar toolbar){
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+       // getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
         //setting Elevation for > API 21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setElevation(10f);

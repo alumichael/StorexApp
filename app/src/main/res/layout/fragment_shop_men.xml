@@ -129,16 +129,47 @@
         app:indicatorColor="@color/colorAccent"
         app:indicatorName="BallPulseIndicator" />
 
+    <LinearLayout
+        android:id="@+id/search_not_found_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+       >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/img_empty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:text="No Item Found for your search"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_men_wear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager" />
+
+
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -1,10 +1,12 @@
 package com.mike4christ.storexapp.actvities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 
+import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 
@@ -44,7 +46,9 @@ import butterknife.ButterKnife;
 /*
  * Hi! here my Dashboard Activity Class, it the Main Board functions for
  * the Whole mobile operations
- *
+ * Functions Like Shopping,Inspiration,Store,Cart and many more...
+ * It Implements View.OnClickListener which is used for the triggering several operation
+ * as described above
  *
  *
  *
@@ -54,7 +58,8 @@ import butterknife.ButterKnife;
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
-
+//Defining widget and binding to
+// view using ButterKnife Library
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.content_dash_layout)
@@ -75,19 +80,21 @@ public class Dashboard extends AppCompatActivity
     LinearLayout mStoreBtnLay;
     @BindView(R.id.more_btn_lay)
     LinearLayout mMoreBtnLay;
+    String cart_count;
 
     UserPreferences userPreferences;
 
     Fragment fragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        userPreferences=new UserPreferences(this);
         ButterKnife.bind(this);
-        String cart_count= String.valueOf(userPreferences.getUserCartSize());
+        userPreferences=new UserPreferences(this);
+        cart_count= String.valueOf(userPreferences.getUserCartSize());
         mCountTvLayout.setText(cart_count);
-
         customizeToolbar(toolbar);
         setClick();
         fragment = new ShopFragment();
@@ -102,6 +109,7 @@ public class Dashboard extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
     private  void setClick(){
+        //Onclick Method initiated
         mShopBtnLay.setOnClickListener(this);
         mInspireBtnLay.setOnClickListener(this);
         mCartBtnLay.setOnClickListener(this);
@@ -110,6 +118,7 @@ public class Dashboard extends AppCompatActivity
     }
 
 
+    //customizing the toolbar to fit middle of appbar
     public void customizeToolbar(Toolbar toolbar){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -148,6 +157,7 @@ public class Dashboard extends AppCompatActivity
         toolbar.setTitle(originalTitle);
     }
 
+    //Method to set fragment immediately Onclick
     private void showFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -155,6 +165,9 @@ public class Dashboard extends AppCompatActivity
         ft.commit();
     }
 
+
+    //Overriding Back Press button to close an already open Navigation
+    //View
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -187,30 +200,33 @@ public class Dashboard extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_shop) {
+            //Shopping Fragment Onclick
             fragment = new ShopFragment();
             showFragment(fragment);
 
-
         } else if (id == R.id.cart) {
+            //Cart Fragment Onclick
             fragment = new CartFragment();
             showFragment(fragment);
 
         } else if (id == R.id.nav_inspire) {
+            //Inspiration Fragment Onclick
             fragment = new InspirationFragment();
             showFragment(fragment);
 
         } else if (id == R.id.nav_store) {
+            //Store Fragment Onclick
             fragment = new StoreFragment();
             showFragment(fragment);
 
         } else if (id == R.id.nav_share) {
+            //Share Mobile App Onclick
 
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
@@ -222,7 +238,7 @@ public class Dashboard extends AppCompatActivity
 
 
         } else if (id == R.id.nav_account) {
-
+            //User Account Fragment Onclick
             fragment = new AccountFragment();
             showFragment(fragment);
 

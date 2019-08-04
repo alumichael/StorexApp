@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/sourcesanspro_semibold"
-                android:text="Your have 3 item on your cart"
+                android:text="Your have 0 item on your cart"
 
                 />
             <Button
@@ -116,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="$300.00"
+                    android:text="$000.00"
                     android:textSize="18sp"
                     android:fontFamily="@font/sourcesanspro_regular"
                     android:textAlignment="textEnd"
@@ -175,7 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="$310.00"
+                    android:text="$000.00"
                     android:fontFamily="@font/sourcesanspro_regular"
                     android:textSize="18sp"
                     android:textAlignment="textEnd"

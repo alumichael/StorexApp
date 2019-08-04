@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 
 public class AccountFragment extends Fragment implements View.OnClickListener{
 
-
     @BindView(R.id.account_layout)
     FrameLayout mAccountLayout;
     @BindView(R.id.avi1)
@@ -50,7 +49,11 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this,view);
         userPreferences=new UserPreferences(getContext());
         String myOrderCount= String.valueOf(userPreferences.getUserOrderSize());
+        String lastOrder= String.valueOf(userPreferences.getUserLastOrder());
+        String lastOrderDate= String.valueOf(userPreferences.getUserLastOrderId());
         mOrderCount.setText(myOrderCount+" Order in Progress");
+        mLastOrderdate.setText("Date: "+lastOrderDate);
+        mOrderId.setText("Last Order: "+lastOrder);
         setAction();
         return view;
     }

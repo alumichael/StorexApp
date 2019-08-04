@@ -61,7 +61,7 @@ public class ShippingAdapter extends RecyclerView.Adapter<ShippingAdapter.MyView
          holder.shipping_type.setText(shipOption.getShippingType());
          holder.shipping_cost.setText(shipOption.getShippingCost());
 
-        holder.setItemClickListener(pos -> {
+        /*holder.setItemClickListener(pos -> {
 
            String type=shipList.get(pos).getShippingType();
            String cost=shipList.get(pos).getShippingCost();
@@ -91,7 +91,7 @@ public class ShippingAdapter extends RecyclerView.Adapter<ShippingAdapter.MyView
                     })
                     .show();
         });
-    }
+*/    }
     
 
     @Override

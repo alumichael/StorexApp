@@ -1,6 +1,10 @@
 package com.mike4christ.storexapp.fragments;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +13,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mike4christ.storexapp.Constant;
 import com.mike4christ.storexapp.R;
+import com.mike4christ.storexapp.models.customer.CartModels.CartList;
+import com.mike4christ.storexapp.models.customer.ErrorModel.APIError;
+import com.mike4christ.storexapp.models.customer.ErrorModel.ErrorUtils;
+import com.mike4christ.storexapp.models.customer.StripePayment.SendpaymentData;
 import com.mike4christ.storexapp.retrofit_interface.ApiInterface;
 import com.mike4christ.storexapp.retrofit_interface.ServiceGenerator;
 import com.mike4christ.storexapp.util.NetworkConnection;
@@ -31,18 +43,25 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.xml.sax.ErrorHandler;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class CartPaymentFragment extends Fragment {
-    private static final String REGION_ID = "region_id";
+public class CartPaymentFragment extends AppCompatActivity {
 
-    /** ButterKnife Code **/
-    @BindView(R.id.cart_addr_layout)
-    LinearLayout mCartAddrLayout;
+
+    @BindView(R.id.cart_payment_layout)
+    LinearLayout mCartPaymentLayout;
     @BindView(R.id.step_view)
     StepView mStepView;
+    @BindView(R.id.toolbar)
+    Toolbar toolBar;
     @BindView(R.id.paypal_btn)
     ImageView mPaypalBtn;
     @BindView(R.id.visa_btn)
@@ -78,71 +97,145 @@ public class CartPaymentFragment extends Fragment {
     ApiInterface client= ServiceGenerator.createService(ApiInterface.class);
     NetworkConnection networkConnection=new NetworkConnection();
     UserPreferences userPreferences;
-    String region_id;
-
-
-    public static CartPaymentFragment newInstance(String region_id) {
-        CartPaymentFragment fragment = new CartPaymentFragment();
-        Bundle args = new Bundle();
-        args.putString(REGION_ID, region_id);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    String region_id="";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            region_id = getArguments().getString(REGION_ID);
+        setContentView(R.layout.fragment_payment_cart);
+        ButterKnife.bind(this);
+        customizeToolbar(toolBar);
 
-        }
-    }
+        Intent intent = getIntent();
+        region_id = intent.getStringExtra("REGION_ID");
 
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_payment_cart, container, false);
-        ButterKnife.bind(this,view);
         mStepView.go(currentStep, true);
 
-        Card cardToSave = mCardInputWidget.getCard();
-        if (cardToSave == null) {
-            showMessage("Invalid Card Data");
-           // mErrorDialogHandler.showError("Invalid Card Data");
+        Boolean isValid = true;
+        if (mShipCountryEditxt.getText().toString().isEmpty()) {
+            mInputLayoutShipCountry.setError("Invalid entry!");
+            showMessage("Invalid Shipping Description entry!");
+            isValid = false;
+
         }
+        if (isValid) {
 
-        // The Card class will normalize the card number
-        final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
-        if (!card.validateCard()) {
-            showMessage("Invalid Card");
+
+            Card cardToSave = mCardInputWidget.getCard();
+            if (cardToSave == null) {
+                showMessage("Invalid Card Data");
+                // mErrorDialogHandler.showError("Invalid Card Data");
+            }
+
+            // The Card class will normalize the card number
+            final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
+            if (!card.validateCard()) {
+                showMessage("Invalid Card");
+            }
+
+            final Stripe stripe = new Stripe(
+                    this,
+                    "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
+            );
+            stripe.createToken(
+                    card,
+                    new TokenCallback() {
+                        public void onSuccess(@NonNull Token token) {
+                            // Send token to your server
+
+                            showMessage("Token: " + token.toString());
+                            Log.i("TokenStrripe",token.toString());
+
+                            SendpaymentData sendpaymentData = new SendpaymentData(token.toString(), Integer.parseInt(userPreferences.getUserOrderId()),
+                                    mShipCountryEditxt.getText().toString(),Integer.parseInt(userPreferences.getTotalAmount()),"USD");
+
+                            Call<ResponseBody> call = client.stripe_response(sendpaymentData);
+                            call.enqueue(new Callback<ResponseBody>() {
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                    if (!response.isSuccessful()) {
+                                        try {
+                                            APIError apiError = ErrorUtils.parseError(response);
+
+                                            showMessage("Fetch Failed: " + apiError.getMessage());
+                                            Log.i("Invalid Fetch", apiError.getMessage());
+                                            //Log.i("Invalid Entry", response.errorBody().toString());
+
+                                        } catch (Exception e) {
+                                            Log.i("Fetch Failed", e.getMessage());
+                                            showMessage("Fetch " + " " + e.getMessage());
+
+                                        }
+
+                                        return;
+                                    }
+
+                                    showMessage("Ordered Placed");
+
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    showMessage("Fetch failed, please try again " + t.getMessage());
+                                    Log.i("GEtError", t.getMessage());
+                                }
+                            });
+
+                        }
+
+                        public void onError(@NonNull Exception error) {
+                            // Show localized error message
+                            showMessage(error.getLocalizedMessage());
+                        }
+                    }
+            );
+
         }
+    }
 
-        final Stripe stripe = new Stripe(
-                getContext(),
-                "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
-        );
-        stripe.createToken(
-                card,
-                new TokenCallback() {
-                    public void onSuccess(@NonNull Token token) {
-                        // Send token to your server
 
-                        showMessage("Token: "+token.toString());
+    public void customizeToolbar(androidx.appcompat.widget.Toolbar toolbar){
 
-                    }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_chevron_left_black_24dp);
+        //setting Elevation for > API 21
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setElevation(10f);
+        }
+        // Save current title and subtitle
+        final CharSequence originalTitle = toolbar.getTitle();
 
-                    public void onError(@NonNull Exception error) {
-                        // Show localized error message
-                        showMessage(error.getLocalizedMessage());
-                    }
+        // Temporarily modify title and subtitle to help detecting each
+        toolbar.setTitle("PAYMENT");
+
+        for(int i = 0; i < toolbar.getChildCount(); i++){
+            View view = toolbar.getChildAt(i);
+
+            if(view instanceof TextView){
+                TextView textView = (TextView) view;
+
+
+                if(textView.getText().equals("PAYMENT")){
+                    // Customize title's TextView
+                    androidx.appcompat.widget.Toolbar.LayoutParams params = new androidx.appcompat.widget.Toolbar.LayoutParams(androidx.appcompat.widget.Toolbar.LayoutParams.WRAP_CONTENT, androidx.appcompat.widget.Toolbar.LayoutParams.MATCH_PARENT);
+                    params.gravity = Gravity.CENTER_HORIZONTAL;
+                    textView.setLayoutParams(params);
+                    textView.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+
                 }
-        );
+            }
+        }
 
-        return  view;
+        // Restore title and subtitle
+        toolbar.setTitle(originalTitle);
     }
 
     public void showMessage(String s) {
-        Snackbar.make(mCartAddrLayout, s, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(this, s, Snackbar.LENGTH_LONG).show();
     }
 }

@@ -148,7 +148,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.MyColorViewH
 
            String value=attrOption.getValue();
            userPreferences.setColorAtrribute(value);
-            Toast.makeText(context.getApplicationContext(),"Color Attribute: "+value+" is picked",Toast.LENGTH_LONG).show();
+            Toast.makeText(context.getApplicationContext(),"Color Attribute: "+value+" is picked",Toast.LENGTH_SHORT).show();
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

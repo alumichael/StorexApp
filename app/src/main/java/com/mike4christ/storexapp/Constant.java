@@ -18,6 +18,13 @@ public class Constant {
     public static final String FACEBOOK_TOKEN= "fb_access_token";
     public static final String IMAGE_BASE_URL="https://mobilebackend.turing.com/images/products/";
 
+    public static final String ITEM_ID = "item_id";
+    public static final String ITEM_NAME = "item_name";
+    public static final String ITEM_COLOR = "item_color";
+    public static final String ITEM_SIZE = "item_size";
+    public static final String ITEM_PRICE = "item_price";
+    public static final String ITEM_QTY = "item_qty";
+
 
 
 

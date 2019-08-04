@@ -132,6 +132,29 @@
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager" />
 
+        <LinearLayout
+            android:id="@+id/search_not_found_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_empty"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No Item Found for your search"
+            android:layout_margin="6dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:fontFamily="@font/sourcesanspro_regular"
+            />
+        </LinearLayout>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

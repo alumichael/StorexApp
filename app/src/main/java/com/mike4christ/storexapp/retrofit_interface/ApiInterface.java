@@ -42,11 +42,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
     @POST("customers")
@@ -58,8 +60,11 @@ public interface ApiInterface {
     @POST("customers/facebook")
     Call<RegGetData> fblogin(@Body FbTokenData fbTokenData);
 
-    @GET("products/inCategory/{category_id}?page=1&limit=50&description_length=300")
-    Call<ProductModel_Obj> product(@Path("category_id") int category_id);
+    @GET("products/inCategory/{category_id}")
+    Call<ProductModel_Obj> product(@Path("category_id") int category_id,
+                                   @Query("page") int page,
+                                   @Query("limit") int limit,
+                                   @Query("description_length") int description_length);
 
     @GET("products/{product_id}/details")
     Call<List<ProductDetailModel>> product_detail( @Path("product_id") int product_id);
@@ -76,6 +81,7 @@ public interface ApiInterface {
     @GET("shoppingcart/{cart_id}")
     Call<List<CartList>> cartlist(@Path("cart_id") String cart_id);
 
+    @FormUrlEncoded
     @PUT("shoppingcart/update/{item_id}")
     Call<List<CartList>> cartedit(@Path("item_id") int item_id, @Field("quantity") int quantity);
 
@@ -91,14 +97,17 @@ public interface ApiInterface {
     @GET("shipping/regions/{shipping_region_id}")
     Call<List<ShippingRegionDetail>> shipping_detail(@Path("shipping_region_id") int shipping_region_id);
 
+
     @PUT("customers/address")
-    Call<GetOrderAddress> putOrder_addr(@Header("USER-KEY") String value, PutOrderAddress putOrderAddress);
+    Call<GetOrderAddress> putOrder_addr(@Header("USER-KEY") String value,@Body PutOrderAddress putOrderAddress);
+
 
     @POST("stripe/charge")
-    Call<ResponseBody> stripe_response(SendpaymentData sendpaymentData);
+    Call<ResponseBody> stripe_response(@Body SendpaymentData sendpaymentData);
+
 
     @POST("orders")
-    Call<GetOrderId> order_id(CreateOrder createOrder);
+    Call<GetOrderId> order_id(@Header("USER-KEY") String value,@Body CreateOrder createOrder);
 
     @GET("orders/inCustomer")
     Call<List<GetOrderList>> getOrder_info(@Header("USER-KEY") String value);
@@ -107,6 +116,19 @@ public interface ApiInterface {
     Call<List<Order_Detail>> getOrder_detail(@Header("USER-KEY") String value,@Path("order_id") int order_id);
 
 
+    @DELETE("shoppingcart/removeProduct/{item_id}")
+    Call<ResponseBody> delete_item(@Path("item_id") int item_id);
+
+    @GET("products/search")
+    Call<ProductModel_Obj> search(@Query("query_string") String query_string,
+                                  @Query("all_words") String all_words,
+                                  @Query("page") int page,
+                                  @Query("limit") int limit,
+                                  @Query("description_length") int description_length
+                                  );
 
 
+
+
+    ///
 }
