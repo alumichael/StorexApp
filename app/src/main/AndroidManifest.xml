@@ -110,6 +110,7 @@
         <activity android:name=".fragments.CartEditFragment" />
         <activity android:name=".fragments.OrderAddrFragment" />
         <activity android:name=".fragments.CartPaymentFragment" />
+        <activity android:name=".fragments.CartCompleteFragment" />
     </application>
 
 </manifest>

@@ -322,6 +322,22 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         call.enqueue(new Callback<List<Attribute>>() {
             @Override
             public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
+                if (!response.isSuccessful()) {
+                    try {
+                        APIError apiError = ErrorUtils.parseError(response);
+
+                        showMessage("Fetch Failed: " + apiError.getMessage());
+                        Log.i("Invalid Fetch", apiError.getMessage());
+                        //Log.i("Invalid Entry", response.errorBody().toString());
+
+                    } catch (Exception e) {
+                        Log.i("Fetch Failed", e.getMessage());
+                        showMessage("Fetch " + " " + e.getMessage());
+
+                    }
+
+                    return;
+                }
 
                 attriSizeList=response.body();
                 Log.i("Re-Successattri",attriSizeList.toString());
@@ -427,10 +443,10 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         switch (view.getId()){
 
             case R.id.addto_cart_btn:
-                if(userPreferences.getUserCartId().equals("mike")){
+                if(userPreferences.getUserCartId().equals("")){
                     getCarId();
 
-                }else {
+                }else{
                     addtoCart(userPreferences.getUserCartId());
                 }
                 break;

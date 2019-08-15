@@ -20,6 +20,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -89,11 +91,10 @@ public class CartPaymentFragment extends AppCompatActivity {
     @BindView(R.id.card_input_widget)
     CardInputWidget mCardInputWidget;
     //ErrorDialogHandler mErrorDialogHandler;
+    Fragment fragment;
 
     private int currentStep=1;
 
-
-    Fragment fragment;
     ApiInterface client= ServiceGenerator.createService(ApiInterface.class);
     NetworkConnection networkConnection=new NetworkConnection();
     UserPreferences userPreferences;
@@ -104,6 +105,7 @@ public class CartPaymentFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_payment_cart);
         ButterKnife.bind(this);
+        userPreferences=new UserPreferences(this);
         customizeToolbar(toolBar);
 
         Intent intent = getIntent();
@@ -123,83 +125,106 @@ public class CartPaymentFragment extends AppCompatActivity {
                 if (isValid) {
 
 
-                    Card cardToSave = mCardInputWidget.getCard();
-                    if (cardToSave == null) {
-                        showMessage("Invalid Card Data");
-                        // mErrorDialogHandler.showError("Invalid Card Data");
-                    }
+                    if (networkConnection.isNetworkConnected(getBaseContext())) {
+                        Card cardToSave = mCardInputWidget.getCard();
+                        if (cardToSave == null) {
+                            showMessage("Invalid Card Data");
+                            // mErrorDialogHandler.showError("Invalid Card Data");
+                        }
 
-                    // The Card class will normalize the card number
-                    final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
-                    if (!card.validateCard()) {
-                        showMessage("Invalid Card");
-                    }
+                        // The Card class will normalize the card number
+                        final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
+                        if (!card.validateCard()) {
+                            showMessage("Invalid Card");
+                            return;
+                        }
 
-                    final Stripe stripe = new Stripe(
-                            getBaseContext(),
-                            "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
-                    );
-                    stripe.createToken(
-                            card,
-                            new TokenCallback() {
-                                public void onSuccess(@NonNull Token token) {
-                                    // Send token to your server
+                        final Stripe stripe = new Stripe(
+                                getBaseContext(),
+                                "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
+                        );
+                        stripe.createToken(
+                                card,
+                                new TokenCallback() {
+                                    public void onSuccess(@NonNull Token token) {
+                                        // Send token to your server
 
-                                    showMessage("Token: " + token.toString());
-                                    Log.i("TokenStrripe",token.toString());
 
-                                    SendpaymentData sendpaymentData = new SendpaymentData(token.toString(), Integer.parseInt(userPreferences.getUserOrderId()),
-                                            mShipCountryEditxt.getText().toString(),Integer.parseInt(userPreferences.getTotalAmount()),"USD");
+                                        showMessage("Token: " + token.toString());
+                                        Log.i("TokenStrripe", token.toString());
 
-                                    Call<ResponseBody> call = client.stripe_response(sendpaymentData);
-                                    call.enqueue(new Callback<ResponseBody>() {
-                                        @Override
-                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                        Log.i("OrderIddd", userPreferences.getUserOrderId());
+                                        Log.i("OrderAmount", userPreferences.getTotalAmount());
+                                        int amount = Math.round(Float.parseFloat(userPreferences.getTotalAmount()));
 
-                                            if (!response.isSuccessful()) {
-                                                try {
-                                                    APIError apiError = ErrorUtils.parseError(response);
+                                        SendpaymentData sendpaymentData = new SendpaymentData(token.getId(), Integer.parseInt(userPreferences.getUserOrderId()),
+                                                mShipCountryEditxt.getText().toString(), amount, "USD");
 
-                                                    showMessage("Fetch Failed: " + apiError.getMessage());
-                                                    Log.i("Invalid Fetch", apiError.getMessage());
-                                                    //Log.i("Invalid Entry", response.errorBody().toString());
+                                        Call<ResponseBody> call = client.stripe_response(sendpaymentData);
+                                        call.enqueue(new Callback<ResponseBody>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                                } catch (Exception e) {
-                                                    Log.i("Fetch Failed", e.getMessage());
-                                                    showMessage("Fetch " + " " + e.getMessage());
+                                                if (!response.isSuccessful()) {
+                                                    try {
+                                                        APIError apiError = ErrorUtils.parseError(response);
 
+                                                        showMessage("Fetch Failed: " + apiError.getMessage());
+                                                        Log.i("Invalid Fetch", apiError.getMessage());
+                                                        //Log.i("Invalid Entry", response.errorBody().toString());
+
+                                                    } catch (Exception e) {
+                                                        Log.i("Fetch Failed", e.getMessage());
+                                                        showMessage("Fetch " + " " + e.getMessage());
+
+                                                    }
+
+                                                    return;
                                                 }
 
-                                                return;
+
+                                                showMessage("Ordered Placed");
+                                                Intent i = new Intent(CartPaymentFragment.this, CartCompleteFragment.class);
+                                                i.putExtra(Constant.ORDER_ID, userPreferences.getUserOrderId());
+                                                startActivity(i);
+                                                finish();
+
+
                                             }
 
-                                            showMessage("Ordered Placed");
+                                            @Override
+                                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                showMessage("Fetch failed, please try again " + t.getMessage());
+                                                Log.i("GEtError", t.getMessage());
+                                            }
+                                        });
 
+                                    }
 
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                            showMessage("Fetch failed, please try again " + t.getMessage());
-                                            Log.i("GEtError", t.getMessage());
-                                        }
-                                    });
-
+                                    public void onError(@NonNull Exception error) {
+                                        // Show localized error message
+                                        showMessage(error.getLocalizedMessage());
+                                    }
                                 }
+                        );
 
-                                public void onError(@NonNull Exception error) {
-                                    // Show localized error message
-                                    showMessage(error.getLocalizedMessage());
-                                }
-                            }
-                    );
-
+                    }
+                }else{
+                    showMessage("No Internet Connection");
                 }
             }
         });
 
 
 
+    }
+
+    //Method to set fragment immediately Onclick
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.fragment_container, fragment);
+        ft.commit();
     }
 
 

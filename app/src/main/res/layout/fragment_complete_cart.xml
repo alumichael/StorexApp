@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cart_addr_layout"
+    android:id="@+id/cart_complete_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorToolbar"
+            android:elevation="4dp"
+            android:foregroundGravity="center"
+            android:minHeight="?attr/actionBarSize"
+            app:popupTheme="@style/MyPopupTheme"
+            app:theme="@style/MyToolBarTheme"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:title="storex"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
 
      <LinearLayout
          android:layout_width="match_parent"
@@ -78,7 +99,7 @@
                  android:layout_marginTop="10dp"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:text="We've sent you"
+                 android:text="Here is your Order ID"
                  android:textSize="20sp"
                  android:fontFamily="@font/sourcesanspro_light"
                  android:textAlignment="center"

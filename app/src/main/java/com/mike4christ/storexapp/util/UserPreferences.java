@@ -49,7 +49,7 @@ public class UserPreferences {
     }
 
     public void setTotalAmount(String totalAmount) {
-        editor.putString("Total_Amount", totalAmount);
+        editor.putString(Constant.TOTAL_AMT, totalAmount);
         editor.apply();
     }
 
@@ -305,7 +305,7 @@ public class UserPreferences {
     }
 
     public String getUserCartId() {
-        return sharedPreferences.getString(Constant.CART_ID,"mike");
+        return sharedPreferences.getString(Constant.CART_ID,"");
     }
 
 

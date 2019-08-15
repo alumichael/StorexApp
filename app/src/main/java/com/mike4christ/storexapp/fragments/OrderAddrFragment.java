@@ -268,6 +268,8 @@ public class OrderAddrFragment extends AppCompatActivity {
                 String regionText = (String) parent.getItemAtPosition(position);
                 region_Id=position+1;
 
+                Log.i("RegionP", String.valueOf(region_Id));
+
 
             }
 
@@ -389,6 +391,7 @@ public class OrderAddrFragment extends AppCompatActivity {
             //creating Order
             if(!userPreferences.getUserCartId().equals("")) {
                 CreateOrder createOrder = new CreateOrder(userPreferences.getUserCartId(), region_Id, 1);
+                Log.i("CartI",userPreferences.getUserCartId());
 
                 Call<GetOrderId> call = client.order_id(userPreferences.getUserAccessToken(), createOrder);
                 call.enqueue(new Callback<GetOrderId>() {
@@ -416,8 +419,9 @@ public class OrderAddrFragment extends AppCompatActivity {
 
                         emptyCart();
 
-                        userPreferences.setUserOrderId(String.valueOf(response.body().getOrderId()));
-
+                        String OrderId=String.valueOf(response.body().getOrderId());
+                        userPreferences.setUserOrderId(OrderId);
+                        Log.i("OrderId",OrderId);
 
                         progressbar.setVisibility(View.GONE);
 

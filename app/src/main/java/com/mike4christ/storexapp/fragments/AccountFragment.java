@@ -48,6 +48,7 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
         View view= inflater.inflate(R.layout.fragment_account, container, false);
         ButterKnife.bind(this,view);
         userPreferences=new UserPreferences(getContext());
+
         String myOrderCount= String.valueOf(userPreferences.getUserOrderSize());
         String lastOrder= String.valueOf(userPreferences.getUserLastOrderId());
         String lastOrderDate= String.valueOf(userPreferences.getUserLastOrder());

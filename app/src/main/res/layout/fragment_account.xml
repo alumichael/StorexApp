@@ -65,21 +65,14 @@
                         android:id="@+id/order_count"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="1 "
+                        android:text="Orders"
                         android:layout_marginEnd="2dp"
                         android:textColor="@color/colorWhite"
                         android:fontFamily="@font/sourcesanspro_semibold"
                         android:textSize="18sp"
                         />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="Order in Progress"
-                        android:textColor="@color/colorWhite"
-                        android:fontFamily="@font/sourcesanspro_semibold"
-                        android:textSize="18sp"
-                        />
+
                 </LinearLayout>
 
 
