@@ -217,7 +217,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                     try {
                         APIError apiError = ErrorUtils.parseError(response);
 
-                        showMessage("Fetch Failed: " + apiError.getMessage());
+                        showMessage("Registration failed");
                         Log.i("Invalid Fetch", apiError.getMessage());
                         //Log.i("Invalid Entry", response.errorBody().toString());
 
@@ -251,6 +251,7 @@ public class RegistrationActivity extends BaseActivity implements View.OnClickLi
                 signup_btn.setVisibility(View.VISIBLE);
                 progressView.setVisibility(View.GONE);
                 startActivity(new Intent(RegistrationActivity.this, LoginActivity.class));
+                finish();
 
             }
 

@@ -1,7 +1,10 @@
 package com.mike4christ.storexapp.actvities;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -175,6 +178,7 @@ public class Dashboard extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            finish();
         }
     }
 
@@ -194,6 +198,7 @@ public class Dashboard extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(Dashboard.this,SettingActivity.class));
             return true;
         }
 
@@ -222,8 +227,7 @@ public class Dashboard extends AppCompatActivity
 
         } else if (id == R.id.nav_store) {
             //Store Fragment Onclick
-            fragment = new StoreFragment();
-            showFragment(fragment);
+            startActivity(new Intent(Dashboard.this,StoreActivity.class));
 
         } else if (id == R.id.nav_share) {
             //Share Mobile App Onclick
@@ -244,7 +248,7 @@ public class Dashboard extends AppCompatActivity
 
 
         } else if (id == R.id.nav_cutomer_suppot) {
-
+            CustomerSupportAlert();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -270,8 +274,7 @@ public class Dashboard extends AppCompatActivity
                 break;
 
             case R.id.store_btn_lay:
-                fragment = new StoreFragment();
-                showFragment(fragment);
+                startActivity(new Intent(Dashboard.this,StoreActivity.class));
                 break;
 
             case R.id.more_btn_lay:
@@ -280,5 +283,22 @@ public class Dashboard extends AppCompatActivity
                 break;
 
         }
+    }
+
+
+    private  void CustomerSupportAlert(){
+
+
+        new AlertDialog.Builder(this)
+                .setTitle("Customer Support")
+                .setMessage("Hi "+userPreferences.getUserName()+"\n"+"You can always contact us through 010000000")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+
     }
 }

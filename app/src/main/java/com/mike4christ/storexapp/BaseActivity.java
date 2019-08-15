@@ -5,12 +5,16 @@ import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.mike4christ.storexapp.util.UserPreferences;
+
 @SuppressLint({"Registered"})
 public class BaseActivity extends AppCompatActivity {
+
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransitionExit();
     }
+
 
     public void finish() {
         super.finish();

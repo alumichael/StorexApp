@@ -2,6 +2,7 @@ package com.mike4christ.storexapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,15 +52,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int i) {
         ProductModel menOption = menList.get(i);
 
-//        bind data to view
-
-        if(menOption.getName()==null){
-            Log.i("BindError",menOption.getName());
-        }else{
-            Log.i("SuccessAdapt",menOption.getName());
-        }
-
         holder.mProductName.setText(menOption.getName());
+        //Underline CLick to Login
+
         holder.mProductPrice.setText(currency+menOption.getPrice());
         double percent_diff=Double.parseDouble(menOption.getPrice())-Double.parseDouble(menOption.getDiscountedPrice());
         double total=percent_diff/100;
@@ -112,6 +107,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyViewHo
         MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mProductPrice.setPaintFlags(mProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             itemView.setOnClickListener(this);
         }

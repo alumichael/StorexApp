@@ -135,21 +135,23 @@ public class CartFragment extends Fragment {
                     }
                     cartList = response.body();
                     cartListSize = cartList.size();
+
                     //userPreferences.setUserCartSize(cartListSize);
                     if (cartListSize > 1) {
                         String item_txt = " items";
                         String cart_countStr = String.valueOf(cartListSize);
-                        mCartCount.setText("You have " + cart_countStr +item_txt+" in your\n" +
+                        mCartCount.setText("You have " + cart_countStr +" "+item_txt+" in your\n" +
                                 "shopping bag");
                     } else if (cartListSize == 1) {
                         String item_txt = "item";
                         String cart_countStr = String.valueOf(cartListSize);
-                        mCartCount.setText("You have " + cart_countStr +item_txt+" in your\n" +
+                        mCartCount.setText("You have " + cart_countStr +" "+item_txt+" in your\n" +
                                 "shopping bag");
                     } else {
+
+                        progressInit.setVisibility(View.GONE);
                         cart_empty_layout.setVisibility(View.VISIBLE);
                         cart_non_empty_Layout.setVisibility(View.GONE);
-
                     }
 
                     Log.i("Re-Success1", cartList.toString());
@@ -164,6 +166,7 @@ public class CartFragment extends Fragment {
                     cartAdapter.notifyDataSetChanged();
                     //progressbar control
                     progressInit.setVisibility(View.GONE);
+                    cart_empty_layout.setVisibility(View.GONE);
                     cart_non_empty_Layout.setVisibility(View.VISIBLE);
                     Log.i("Success", response.body().toString());
 
@@ -199,19 +202,21 @@ public class CartFragment extends Fragment {
 
                         return;
                     }
-                    try {
-                        subtotalAmount = Double.parseDouble(response.body().getTotalAmount());
-                        String subtotalAmount_txt = String.valueOf(subtotalAmount);
-                        mSubtotalTxt.setText(currency + subtotalAmount_txt);
-                        double shipping_txt = shipping;
-                        mShippingCostTxt.setText(currency + shipping_txt);
-                        double total_amount = subtotalAmount + shipping;
-                        String total_amt_txt = String.valueOf(total_amount);
-                        mTotalCostTxt.setText(currency + total_amt_txt);
-                        userPreferences.setTotalAmount(total_amt_txt);
-                    }catch (Exception e){
-                        showMessage("Pick an Item");
-                    }
+                        try {
+                            subtotalAmount = Double.parseDouble(response.body().getTotalAmount());
+                            String subtotalAmount_txt = String.valueOf(subtotalAmount);
+                            mSubtotalTxt.setText(currency + subtotalAmount_txt);
+                            double shipping_txt = shipping;
+                            mShippingCostTxt.setText(currency + shipping_txt);
+                            double total_amount = subtotalAmount + shipping;
+                            String total_amt_txt = String.valueOf(total_amount);
+                            mTotalCostTxt.setText(currency + total_amt_txt);
+                            userPreferences.setTotalAmount(total_amt_txt);
+                        }catch (Exception e){
+                            mCheckoutBtn.setVisibility(View.INVISIBLE);
+                            showMessage("Pick an Item");
+                        }
+
 
                 }
 

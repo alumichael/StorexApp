@@ -107,8 +107,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        userPreferences = new UserPreferences(this);
 
+        userPreferences = new UserPreferences(this);
         callbackManager = CallbackManager.Factory.create();
 
         txtSignup.setOnClickListener(this);
@@ -275,6 +275,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     }
 
 
+    //Temporaral Alert against Fb Login
     private  void alert(){
         new AlertDialog.Builder(this)
                 .setTitle("Developer Notification")
@@ -348,25 +349,30 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                     try {
                         APIError apiError = ErrorUtils.parseError(response);
 
-                        showMessage("Fetch Failed: " + apiError.getMessage());
+                        showMessage("Invalid Log in Data");
                         Log.i("Invalid Fetch", apiError.getMessage());
                         //Log.i("Invalid Entry", response.errorBody().toString());
                         loginBtn.setVisibility(View.VISIBLE);
                         progressView.setVisibility(View.GONE);
 
                     } catch (Exception e) {
+                        showMessage("Invalid Log in Data");
                         Log.i("Fetch Failed", e.getMessage());
                         loginBtn.setVisibility(View.VISIBLE);
                         progressView.setVisibility(View.GONE);
-                        showMessage("Fetch " + " " + e.getMessage());
 
                     }
 
                     return;
                 }
 
-                userPreferences.setCustomerId(response.body().getCustomer().getCustomerId());
-                userPreferences.setUserName(response.body().getCustomer().getName());
+                int customerId=response.body().getCustomer().getCustomerId();
+                String username=response.body().getCustomer().getName();
+                String token=response.body().getAccessToken();
+                userPreferences.setCustomerId(customerId);
+                userPreferences.setUserName(username);
+                userPreferences.setUserAccessToken(token);
+
                 userPreferences.setUserEmail(response.body().getCustomer().getEmail());
                 userPreferences.setUserAddr1(response.body().getCustomer().getAddress1());
                 userPreferences.setUserAddr2(response.body().getCustomer().getAddress2());
@@ -377,10 +383,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 userPreferences.setUserDayPhone(response.body().getCustomer().getDayPhone());
                 userPreferences.setUserEvePhone(response.body().getCustomer().getEvePhone());
                 userPreferences.setUserMobPhone(response.body().getCustomer().getMobPhone());
-                userPreferences.setUserAccessToken(response.body().getAccessToken());
+
                 userPreferences.setUserExpiresIn(response.body().getExpiresIn());
-                showMessage(userPreferences.getUserAccessToken());
-                Log.i("AccessTken",userPreferences.getUserAccessToken());
+                Log.i("AccessToken",userPreferences.getUserAccessToken());
 
                 //userPreferences.setUserLogged(true);
                 loginBtn.setVisibility(View.VISIBLE);
@@ -398,8 +403,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                 progressView.setVisibility(View.GONE);
             }
         });
-
-
 
     }
 

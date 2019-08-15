@@ -30,9 +30,6 @@ public class InspirationLifeDetail extends AppCompatActivity {
     @BindView(R.id.detail_txt)
     TextView mDetailTxt;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -110,89 +110,96 @@ public class CartPaymentFragment extends AppCompatActivity {
         region_id = intent.getStringExtra("REGION_ID");
 
         mStepView.go(currentStep, true);
+        mPayNowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean isValid = true;
+                if (mShipCountryEditxt.getText().toString().isEmpty()) {
+                    mInputLayoutShipCountry.setError("Invalid entry!");
+                    showMessage("Invalid Shipping Description entry!");
+                    isValid = false;
 
-        Boolean isValid = true;
-        if (mShipCountryEditxt.getText().toString().isEmpty()) {
-            mInputLayoutShipCountry.setError("Invalid entry!");
-            showMessage("Invalid Shipping Description entry!");
-            isValid = false;
-
-        }
-        if (isValid) {
+                }
+                if (isValid) {
 
 
-            Card cardToSave = mCardInputWidget.getCard();
-            if (cardToSave == null) {
-                showMessage("Invalid Card Data");
-                // mErrorDialogHandler.showError("Invalid Card Data");
-            }
+                    Card cardToSave = mCardInputWidget.getCard();
+                    if (cardToSave == null) {
+                        showMessage("Invalid Card Data");
+                        // mErrorDialogHandler.showError("Invalid Card Data");
+                    }
 
-            // The Card class will normalize the card number
-            final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
-            if (!card.validateCard()) {
-                showMessage("Invalid Card");
-            }
+                    // The Card class will normalize the card number
+                    final Card card = Card.create("4242-4242-4242-4242", 12, 2020, "123");
+                    if (!card.validateCard()) {
+                        showMessage("Invalid Card");
+                    }
 
-            final Stripe stripe = new Stripe(
-                    this,
-                    "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
-            );
-            stripe.createToken(
-                    card,
-                    new TokenCallback() {
-                        public void onSuccess(@NonNull Token token) {
-                            // Send token to your server
+                    final Stripe stripe = new Stripe(
+                            getBaseContext(),
+                            "pk_test_v8bGWjpUZYpi5yV40CJy4tWE00D8mhCFP3"
+                    );
+                    stripe.createToken(
+                            card,
+                            new TokenCallback() {
+                                public void onSuccess(@NonNull Token token) {
+                                    // Send token to your server
 
-                            showMessage("Token: " + token.toString());
-                            Log.i("TokenStrripe",token.toString());
+                                    showMessage("Token: " + token.toString());
+                                    Log.i("TokenStrripe",token.toString());
 
-                            SendpaymentData sendpaymentData = new SendpaymentData(token.toString(), Integer.parseInt(userPreferences.getUserOrderId()),
-                                    mShipCountryEditxt.getText().toString(),Integer.parseInt(userPreferences.getTotalAmount()),"USD");
+                                    SendpaymentData sendpaymentData = new SendpaymentData(token.toString(), Integer.parseInt(userPreferences.getUserOrderId()),
+                                            mShipCountryEditxt.getText().toString(),Integer.parseInt(userPreferences.getTotalAmount()),"USD");
 
-                            Call<ResponseBody> call = client.stripe_response(sendpaymentData);
-                            call.enqueue(new Callback<ResponseBody>() {
-                                @Override
-                                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                    Call<ResponseBody> call = client.stripe_response(sendpaymentData);
+                                    call.enqueue(new Callback<ResponseBody>() {
+                                        @Override
+                                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                                    if (!response.isSuccessful()) {
-                                        try {
-                                            APIError apiError = ErrorUtils.parseError(response);
+                                            if (!response.isSuccessful()) {
+                                                try {
+                                                    APIError apiError = ErrorUtils.parseError(response);
 
-                                            showMessage("Fetch Failed: " + apiError.getMessage());
-                                            Log.i("Invalid Fetch", apiError.getMessage());
-                                            //Log.i("Invalid Entry", response.errorBody().toString());
+                                                    showMessage("Fetch Failed: " + apiError.getMessage());
+                                                    Log.i("Invalid Fetch", apiError.getMessage());
+                                                    //Log.i("Invalid Entry", response.errorBody().toString());
 
-                                        } catch (Exception e) {
-                                            Log.i("Fetch Failed", e.getMessage());
-                                            showMessage("Fetch " + " " + e.getMessage());
+                                                } catch (Exception e) {
+                                                    Log.i("Fetch Failed", e.getMessage());
+                                                    showMessage("Fetch " + " " + e.getMessage());
+
+                                                }
+
+                                                return;
+                                            }
+
+                                            showMessage("Ordered Placed");
+
 
                                         }
 
-                                        return;
-                                    }
-
-                                    showMessage("Ordered Placed");
-
+                                        @Override
+                                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                            showMessage("Fetch failed, please try again " + t.getMessage());
+                                            Log.i("GEtError", t.getMessage());
+                                        }
+                                    });
 
                                 }
 
-                                @Override
-                                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                    showMessage("Fetch failed, please try again " + t.getMessage());
-                                    Log.i("GEtError", t.getMessage());
+                                public void onError(@NonNull Exception error) {
+                                    // Show localized error message
+                                    showMessage(error.getLocalizedMessage());
                                 }
-                            });
+                            }
+                    );
 
-                        }
+                }
+            }
+        });
 
-                        public void onError(@NonNull Exception error) {
-                            // Show localized error message
-                            showMessage(error.getLocalizedMessage());
-                        }
-                    }
-            );
 
-        }
+
     }
 
 

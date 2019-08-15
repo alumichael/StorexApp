@@ -49,10 +49,8 @@ public class ShopFragment extends Fragment implements BaseSliderView.OnSliderCli
     MaterialCardView mWommenBtn;
     @BindView(R.id.shop_tag_btn)
     Button mShopTagBtn;
-
     @BindView(R.id.slider)
     SliderLayout mSlider;
-
     Fragment fragment;
 
 

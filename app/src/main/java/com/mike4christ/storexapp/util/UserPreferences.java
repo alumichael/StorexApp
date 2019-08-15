@@ -23,7 +23,7 @@ public class UserPreferences {
 
     public void setUserLogged(boolean usLg) {
         editor.putBoolean(Constant.IS_USER_LOGGED, usLg);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isUserLogged() {
@@ -32,7 +32,7 @@ public class UserPreferences {
 
     public void setFacebookToken(String facebookToken) {
         editor.putString(Constant.FACEBOOK_TOKEN, facebookToken);
-        editor.commit();
+        editor.apply();
     }
 
     public String getColorAtrribute() {
@@ -41,16 +41,16 @@ public class UserPreferences {
 
     public void setColorAtrribute(String color) {
         editor.putString(Constant.COLOR_ATTR, color);
-        editor.commit();
+        editor.apply();
     }
 
     public String getTotalAmount() {
-        return sharedPreferences.getString("Total_Amount", "");
+        return sharedPreferences.getString(Constant.TOTAL_AMT, "");
     }
 
     public void setTotalAmount(String totalAmount) {
         editor.putString("Total_Amount", totalAmount);
-        editor.commit();
+        editor.apply();
     }
 
     public String getSizeAttribute() {
@@ -59,7 +59,7 @@ public class UserPreferences {
 
     public void setSizeAttribute(String size) {
         editor.putString(Constant.SIZE_ATTR, size);
-        editor.commit();
+        editor.apply();
     }
 
 
@@ -67,14 +67,9 @@ public class UserPreferences {
         return sharedPreferences.getString(Constant.FACEBOOK_TOKEN, "");
     }
 
-
-    public String getString(String key, String defaultValue) {
-        sharedPreferences = _context.getSharedPreferences(Constant.USER_PREF, 0);
-        return sharedPreferences.getString(key, defaultValue);
-    }
     public void setFirstTimeLaunch(boolean isFirstTime) {
         editor.putBoolean(Constant.IS_FIRST_TIME_LAUNCH, isFirstTime);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isFirstTimeLaunch() {
@@ -83,51 +78,48 @@ public class UserPreferences {
 
     public void setSentSuccess(boolean isSentSuccess) {
         editor.putBoolean(Constant.IS_SENT_SUCCESS, isSentSuccess);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isSentSuccess() {
         return sharedPreferences.getBoolean(Constant.IS_SENT_SUCCESS, false);
     }
 
-    public void saveString(String key, String value) {
-        sharedPreferences = _context.getSharedPreferences(Constant.USER_PREF, 0);
-        editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.commit();
-    }
+
+
+
 
 
     public void setCustomerId(int customer_id) {
-        editor.putInt("customer_id", customer_id);
-        editor.commit();
+        editor.putInt(Constant.CUSTOMER_ID, customer_id);
+        editor.apply();
     }
 
     public Integer getCustomerId() {
-        return sharedPreferences.getInt("customer_id", 0);
+        return sharedPreferences.getInt(Constant.CUSTOMER_ID, 0);
     }
 
     public void setUserName(String name) {
-        editor.putString("name", name);
-        editor.commit();
+        editor.putString(Constant.NAME, name);
+        editor.apply();
     }
 
     public String getUserName() {
-        return sharedPreferences.getString("name", "");
+        return sharedPreferences.getString(Constant.NAME, "");
     }
 
     public void setUserEmail(String email) {
-        editor.putString("email", email);
-        editor.commit();
+        editor.putString(Constant.EMAIL, email);
+        editor.apply();
     }
 
     public String getUserEmail() {
-        return sharedPreferences.getString("email", "");
+        return sharedPreferences.getString(Constant.EMAIL, "");
     }
 
     public void setUserAddr1(String addr1) {
-        editor.putString("address_1", addr1);
-        editor.commit();
+        editor.putString(Constant.ADDR1, addr1);
+        editor.apply();
     }
 
     public String getUserAddr1() {
@@ -136,77 +128,77 @@ public class UserPreferences {
 
 
     public void setUserFirstname(String firstname) {
-        editor.putString("firstname", firstname);
-        editor.commit();
+        editor.putString(Constant.FIRSTNAME, firstname);
+        editor.apply();
     }
 
     public String getUserFirstname() {
-        return sharedPreferences.getString("firstname", "");
+        return sharedPreferences.getString(Constant.FIRSTNAME, "");
     }
 
     public void setUserLastname(String lastname) {
-        editor.putString("lastname", lastname);
-        editor.commit();
+        editor.putString(Constant.LASTNAME, lastname);
+        editor.apply();
     }
 
     public String getUserLastname() {
-        return sharedPreferences.getString("lastname", "");
+        return sharedPreferences.getString(Constant.LASTNAME, "");
     }
 
     public void setUserState(String userState) {
-        editor.putString("userState", userState);
-        editor.commit();
+        editor.putString(Constant.USER_STATE, userState);
+        editor.apply();
     }
 
     public String getUserState() {
-        return sharedPreferences.getString("userState", "");
+        return sharedPreferences.getString(Constant.USER_STATE, "");
     }
 
 
     public void setUserAddr2(String addr2) {
-        editor.putString("address_2", addr2);
-        editor.commit();
+        editor.putString(Constant.ADDR2, addr2);
+        editor.apply();
     }
 
     public String getUserAddr2() {
-        return sharedPreferences.getString("address_2", "");
+        return sharedPreferences.getString(Constant.ADDR2, "");
     }
 
 
     public void setUserCity(String city) {
-        editor.putString("city", city);
-        editor.commit();
+        editor.putString(Constant.CITY, city);
+        editor.apply();
     }
 
     public String getUserCity() {
-        return sharedPreferences.getString("city", "");
+        return sharedPreferences.getString(Constant.CITY, "");
     }
 
 
 
     public void setUserRegion(String region) {
-        editor.putString("region", region);
-        editor.commit();
+        editor.putString(Constant.REGION, region);
+        editor.apply();
     }
 
     public String getUserRegion() {
-        return sharedPreferences.getString("region", "");
+        return sharedPreferences.getString(Constant.REGION, "");
     }
 
     public void setUserPostalCode(String postalCode) {
-        editor.putString("postal_code", postalCode);
-        editor.commit();
+        editor.putString(Constant.POSTAL_CODE, postalCode);
+        editor.apply();
     }
 
 
     public String getUserPostalCode() {
-        return sharedPreferences.getString("postal_code", "");
+        return sharedPreferences.getString(Constant.POSTAL_CODE, "");
     }
 
 
     public void setUserCountry(String country) {
-        editor.putString("country", country);
-        editor.commit();
+        editor.putString(Constant.COUNTRY, country);
+        editor.apply();
     }
 
     public String getUserCountry() {
@@ -214,141 +206,130 @@ public class UserPreferences {
     }
 
     public void setUserShippingRegionId(int shippingRegionId) {
-        editor.putInt("shipping_region_id", shippingRegionId);
-        editor.commit();
+        editor.putInt(Constant.SHIPPING_REGION_ID, shippingRegionId);
+        editor.apply();
     }
 
     public Integer getUserShippingRegionId() {
-        return sharedPreferences.getInt("shipping_region_id", 0);
+        return sharedPreferences.getInt(Constant.SHIPPING_REGION_ID, 0);
     }
 
     public void setUserDayPhone(String dayPhone) {
-        editor.putString("day_phone", dayPhone);
-        editor.commit();
+        editor.putString(Constant.DAY_PHONE, dayPhone);
+        editor.apply();
     }
 
     public String getUserDayPhone() {
-        return sharedPreferences.getString("day_phone", "");
+        return sharedPreferences.getString(Constant.DAY_PHONE, "");
     }
 
     public void setUserEvePhone(String evePhone) {
-        editor.putString("eve_phone", evePhone);
-        editor.commit();
+        editor.putString(Constant.EVE_PHONE, evePhone);
+        editor.apply();
     }
 
     public String getUserEvePhone() {
-        return sharedPreferences.getString("eve_phone", "");
+        return sharedPreferences.getString(Constant.EVE_PHONE, "");
     }
 
     public void setUserMobPhone(String mobPhone) {
-        editor.putString("mob_phone", mobPhone);
-        editor.commit();
+        editor.putString(Constant.MOB_PHONE, mobPhone);
+        editor.apply();
     }
 
     public String getUserMobPhone() {
-        return sharedPreferences.getString("mob_phone", "");
+        return sharedPreferences.getString(Constant.MOB_PHONE, "");
     }
 
     public void setUserAccessToken(String accessToken) {
-        editor.putString("accessToken", accessToken);
-        editor.commit();
+        editor.putString(Constant.ACCESS_TOKEN, accessToken);
+        editor.apply();
     }
 
     public String getUserAccessToken() {
-        return sharedPreferences.getString("accessToken", "");
+        return sharedPreferences.getString(Constant.ACCESS_TOKEN, "");
     }
 
     public void setUserExpiresIn(String expiresIn) {
-        editor.putString("expires_in", expiresIn);
-        editor.commit();
+        editor.putString(Constant.EXPIRE_IN, expiresIn);
+        editor.apply();
     }
 
     public String getUserExpiresIn() {
-        return sharedPreferences.getString("expires_in", "");
+        return sharedPreferences.getString(Constant.EXPIRE_IN, "");
     }
 
 
     public void setUserOrderId(String orderId) {
-        editor.putString("orderId", orderId);
-        editor.commit();
+        editor.putString(Constant.ORDER_ID, orderId);
+        editor.apply();
     }
 
     public String getUserOrderId() {
-        return sharedPreferences.getString("orderId", "");
+        return sharedPreferences.getString(Constant.ORDER_ID, "");
     }
 
-    public void setUserOrderSize(int orderSize) {
-        editor.putInt("orderSize", orderSize);
-        editor.commit();
-    }
 
     public String getUserLastOrder() {
-        return sharedPreferences.getString("lastOrder", "");
+        return sharedPreferences.getString(Constant.LAST_ORDER, "");
     }
 
 
     public void setUserLastOrder(String lastOrder) {
-        editor.putString("lastOrder", lastOrder);
-        editor.commit();
+        editor.putString(Constant.LAST_ORDER, lastOrder);
+        editor.apply();
     }
 
     public String getUserLastOrderId() {
-        return sharedPreferences.getString("lastOderId", "");
+        return sharedPreferences.getString(Constant.LAST_ORDER_ID, "");
     }
 
 
     public void setUserLastOrderId(String lastOderId) {
-        editor.putString("lastOderId", lastOderId);
-        editor.commit();
+        editor.putString(Constant.LAST_ORDER_ID, lastOderId);
+        editor.apply();
+    }
+    public void setUserOrderSize(int orderSize) {
+        editor.putInt(Constant.ORDER_SIZE, orderSize);
+        editor.apply();
     }
 
     public int getUserOrderSize() {
-        return sharedPreferences.getInt("orderSize", 0);
+        return sharedPreferences.getInt(Constant.ORDER_SIZE, 0);
     }
 
 
     public void setUserCartId(String userCartId) {
-        editor.putString("cart_id", userCartId);
-        editor.commit();
+        editor.putString(Constant.CART_ID, userCartId);
+        editor.apply();
     }
 
     public String getUserCartId() {
-        return sharedPreferences.getString("cart_id", "");
+        return sharedPreferences.getString(Constant.CART_ID,"mike");
     }
 
 
     public void setUserCartSize(int cartSize) {
-        editor.putInt("cartSize", cartSize);
-        editor.commit();
+        editor.putInt(Constant.CART_SIZE, cartSize);
+        editor.apply();
     }
 
     public int getUserCartSize() {
-        return sharedPreferences.getInt("cartSize", 0);
+        return sharedPreferences.getInt(Constant.CART_SIZE, 0);
     }
 
 
     public void setShippingCost(String shippingCost) {
-        editor.putString("shippingCost", shippingCost);
-        editor.commit();
+        editor.putString(Constant.SHIPPING_COST, shippingCost);
+        editor.apply();
     }
 
     public String getShippingCost() {
-        return sharedPreferences.getString("shippingCost", "");
+        return sharedPreferences.getString(Constant.SHIPPING_COST, "");
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
 
 }

@@ -86,6 +86,7 @@ public class WelcomeSlideActivity extends BaseActivity implements View.OnClickLi
         if (id == R.id.signin_btn) {
             //Toast.makeText(this,"nice Work today",Toast.LENGTH_LONG).show();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            finish();
         }
     }
 

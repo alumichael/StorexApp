@@ -26,6 +26,33 @@ public class Constant {
     public static final String ITEM_QTY = "item_qty";
 
 
+    //User Parameters
+    public static final String TOTAL_AMT = "total_amount";
+    public static final String CUSTOMER_ID = "customer_id";
+    public static final String NAME = "name";
+    public static final String EMAIL = "email";
+    public static final String ADDR1 = "address_1";
+    public static final String ADDR2 = "address_2";
+    public static final String FIRSTNAME = "firstname";
+    public static final String LASTNAME = "lastname";
+    public static final String USER_STATE = "user_state";
+    public static final String CITY = "city";
+    public static final String REGION = "region";
+    public static final String POSTAL_CODE = "postal_code";
+    public static final String COUNTRY = "country";
+    public static final String SHIPPING_REGION_ID = "shipping_region_id";
+    public static final String DAY_PHONE = "day_phone";
+    public static final String EVE_PHONE = "eve_phone";
+    public static final String MOB_PHONE = "mob_phone";
+    public static final String ACCESS_TOKEN = "access_token";
+    public static final String EXPIRE_IN = "expires_in";
+    public static final String LAST_ORDER = "lastOrder";
+    public static final String LAST_ORDER_ID = "lastOrderId";
+    public static final String ORDER_SIZE = "orderSize";
+    public static final String CART_ID = "cart_id";
+    public static final String CART_SIZE = "cart_size";
+    public static final String SHIPPING_COST = "shippingCost";
+
 
 
 

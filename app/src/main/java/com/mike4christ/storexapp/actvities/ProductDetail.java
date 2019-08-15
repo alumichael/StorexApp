@@ -2,6 +2,7 @@ package com.mike4christ.storexapp.actvities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,11 +34,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.mike4christ.storexapp.Constant;
 import com.mike4christ.storexapp.R;
 import com.mike4christ.storexapp.adapters.ColorAdapter;
-import com.mike4christ.storexapp.adapters.ProductAdapter;
 import com.mike4christ.storexapp.adapters.SizeAdapter;
-import com.mike4christ.storexapp.fragments.CartFragment;
-import com.mike4christ.storexapp.fragments.CartPaymentFragment;
-import com.mike4christ.storexapp.fragments.StoreFragment;
 import com.mike4christ.storexapp.models.customer.Attribute;
 import com.mike4christ.storexapp.models.customer.CartModels.AddCartResponse;
 import com.mike4christ.storexapp.models.customer.CartModels.AddtoCart;
@@ -45,8 +42,6 @@ import com.mike4christ.storexapp.models.customer.CartModels.CartId;
 import com.mike4christ.storexapp.models.customer.ErrorModel.APIError;
 import com.mike4christ.storexapp.models.customer.ErrorModel.ErrorUtils;
 import com.mike4christ.storexapp.models.customer.Product.ProductDetailModel;
-import com.mike4christ.storexapp.models.customer.Product.ProductModel;
-import com.mike4christ.storexapp.models.customer.Product.ProductModel_Obj;
 import com.mike4christ.storexapp.retrofit_interface.ApiInterface;
 import com.mike4christ.storexapp.retrofit_interface.ServiceGenerator;
 import com.mike4christ.storexapp.util.NetworkConnection;
@@ -62,10 +57,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class ProductDetail extends AppCompatActivity implements BaseSliderView.OnSliderClickListener,
@@ -95,12 +87,13 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
 
     String image1="",image2="";
-    String id="",cart_id;
+    String id="";
     ColorAdapter colorAdapter;
     SizeAdapter sizeAdapter;
     List<Attribute> attriColorlList;
     List<Attribute> attriSizeList;
     String attribute,currency="$";
+    String cart_id="";
     LinearLayoutManager linearLayoutManager,linearLayoutManager2;
     UserPreferences userPreferences;
     Fragment fragment;
@@ -118,8 +111,6 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         id=intent.getStringExtra(Constant.PRODUCT_ID);
 
         if(networkConnection.isNetworkConnected(this)) {
-            progressbar.setVisibility(View.VISIBLE);
-            detail_layout.setVisibility(View.GONE);
             init();
         }else{
             showMessage("Network Connection failed");
@@ -128,13 +119,14 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
     }
 
     private void init(){
-
-        getProduct();
+        progressbar.setVisibility(View.VISIBLE);
+        detail_layout.setVisibility(View.GONE);
         setActions();
-        getAttributeColor();
-        getAttributeSize();
+        getProduct();
+        getAttribute();
         progressbar.setVisibility(View.GONE);
         detail_layout.setVisibility(View.VISIBLE);
+
 
     }
 
@@ -145,30 +137,41 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
     private void getProduct(){
 
-        //To create retrofit instance
-        Retrofit.Builder builder =new Retrofit.Builder()
-                .baseUrl(Constant.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create());
-
-        Retrofit retrofit=builder.build();
-
-        //get client and call object for request
-        ApiInterface client=retrofit.create(ApiInterface.class);
+        //Calling the service generator client
         Call<List<ProductDetailModel>> call=client.product_detail(Integer.parseInt(id));
         call.enqueue(new Callback<List<ProductDetailModel>>() {
             @Override
             public void onResponse(Call<List<ProductDetailModel>> call, Response<List<ProductDetailModel>> response) {
 
 
+                if (!response.isSuccessful()) {
+                    try {
+                        APIError apiError = ErrorUtils.parseError(response);
+
+                        showMessage("Fetch Failed: " + apiError.getMessage());
+                        Log.i("Invalid Fetch", apiError.getMessage());
+                        //Log.i("Invalid Entry", response.errorBody().toString());
+
+                    } catch (Exception e) {
+                        Log.i("Fetch Failed", e.getMessage());
+                        showMessage("Fetch " + " " + e.getMessage());
+
+                    }
+
+                    return;
+                }
+
+
+
                 List<ProductDetailModel> modelList=response.body();
                 Log.i("Re-Success1",modelList.toString());
                 Log.i("Re-SuccessSize", String.valueOf(modelList.size()));
                 mProductNameTxt.setText(modelList.get(0).getName());
+                mProductPrice.setPaintFlags(mProductPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 mProductPrice.setText(currency+modelList.get(0).getPrice());
                 mDetailTxt.setText(modelList.get(0).getDescription());
                 mDiscountPrice.setText(currency+modelList.get(0).getDiscountedPrice());
                 SLide(modelList.get(0).getImage(),modelList.get(0).getImage2());
-
 
             }
 
@@ -182,11 +185,9 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
     }
 
-
     @SuppressLint("CheckResult")
     private void SLide(String imagevalue1, String imagevalue2){
 
-        progressbar.setVisibility(View.VISIBLE);
         Log.i("SlideImage1",image1);
 
         ArrayList<String> listUrl = new ArrayList<>();
@@ -225,9 +226,7 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
         // set Slider Transition Animation
         // mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Default);
-        progressbar.setVisibility(View.GONE);
         mSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-
         mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         mSlider.setCustomAnimation(new DescriptionAnimation());
         mSlider.setDuration(4000);
@@ -314,36 +313,9 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         return super.onOptionsItemSelected(item);
     }
 
-    private void getAttributeColor(){
-
-        progressbar.setVisibility(View.VISIBLE);
-        //To create retrofit instance
-
-        Call<List<Attribute>> call=client.attribute(2);
-        call.enqueue(new Callback<List<Attribute>>() {
-            @Override
-            public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
 
 
-                attriColorlList=response.body();
-                Log.i("Re-Successattri",attriColorlList.toString());
-                Log.i("Re-Successattr", String.valueOf(attriColorlList.size()));
-                progressbar.setVisibility(View.GONE);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Attribute>> call, Throwable t) {
-                showMessage("Fetch failed, please try again "+t.getMessage());
-                Log.i("GEtError",t.getMessage());
-            }
-        });
-
-
-    }
-
-
-    private void getAttributeSize(){
+    private void getAttribute(){
 
 
         Call<List<Attribute>> call=client.attribute(1);
@@ -351,12 +323,28 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
             @Override
             public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
 
-
                 attriSizeList=response.body();
                 Log.i("Re-Successattri",attriSizeList.toString());
                 Log.i("Re-Successattr", String.valueOf(attriSizeList.size()));
 
+            }
 
+            @Override
+            public void onFailure(Call<List<Attribute>> call, Throwable t) {
+                showMessage("Fetch failed, please try again "+t.getMessage());
+                Log.i("GEtError",t.getMessage());
+            }
+        });
+        //To create retrofit instance
+
+        Call<List<Attribute>> call2=client.attribute(2);
+        call2.enqueue(new Callback<List<Attribute>>() {
+            @Override
+            public void onResponse(Call<List<Attribute>> call, Response<List<Attribute>> response) {
+
+                attriColorlList=response.body();
+                Log.i("Re-Successattri",attriColorlList.toString());
+                Log.i("Re-Successattr", String.valueOf(attriColorlList.size()));
 
             }
 
@@ -367,6 +355,45 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
             }
         });
 
+    }
+
+    private void getCarId(){
+
+        //Generate Unique ID for Cart
+        Call<CartId> call=client.cartUniquieId();
+        call.enqueue(new Callback<CartId>() {
+            @Override
+            public void onResponse(Call<CartId> call, Response<CartId> response) {
+
+                if(!response.isSuccessful()){
+                    try {
+                        APIError apiError = ErrorUtils.parseError(response);
+                        showMessage("CartIdFetch Failed: " + apiError.getMessage());
+                        Log.i("Invalid Fetch", apiError.getMessage());
+
+                    } catch (Exception e) {
+
+                        Log.i("Fetch Failed", e.getMessage());
+                        showMessage("CartIdFetch Failed");
+
+                    }
+
+                    return;
+                }
+
+                cart_id=response.body().getCartId();
+                userPreferences.setUserCartId(cart_id);
+                Log.i("CardId",cart_id);
+                addtoCart(cart_id);
+
+            }
+
+            @Override
+            public void onFailure(Call<CartId> call, Throwable t) {
+                showMessage("Failed to getCart ID "+t.getMessage());
+                Log.i("GEtError",t.getMessage());
+            }
+        });
 
     }
 
@@ -400,22 +427,19 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
         switch (view.getId()){
 
             case R.id.addto_cart_btn:
-                addtoCart();
+                if(userPreferences.getUserCartId().equals("mike")){
+                    getCarId();
+
+                }else {
+                    addtoCart(userPreferences.getUserCartId());
+                }
                 break;
-
-
         }
 
     }
 
-    private void addtoCart(){
-
+    private void addtoCart(String CartId){
         progressbar.setVisibility(View.VISIBLE);
-        //get client and call object for request
-       if(userPreferences.getUserCartId().equals("")){
-           getCarId();
-       }
-
         //Add to Cart
         //Combine attribute
         if(!userPreferences.getSizeAttribute().equals("") && !userPreferences.getColorAtrribute().equals("")){
@@ -424,10 +448,12 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
             userPreferences.setColorAtrribute("");
         }else{
             showMessage("Please pick Color and Size");
+            progressbar.setVisibility(View.GONE);
             return;
         }
 
-        AddtoCart addtoCart=new AddtoCart(userPreferences.getUserCartId(),Integer.parseInt(id),attribute);
+        AddtoCart addtoCart=new AddtoCart(CartId,Integer.parseInt(id),attribute);
+        Log.i("Cart_Id",userPreferences.getUserCartId());
         Call<List<AddCartResponse>> call=client.addCartResponse(addtoCart);
 
         call.enqueue(new Callback<List<AddCartResponse>>() {
@@ -441,12 +467,22 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
                     return;
                 }
-                  int len=response.body().size();
+
+                int len=response.body().size();
+                String allProd=response.body().toString();
                  String name=response.body().get(len-1).getName();
+                 String link=response.headers().toString();
+
 
                  userPreferences.setUserCartSize(len);
                 showMessage("Item is saved to Cart(Bag)");
                 Log.i("ProductName",name);
+                String prodId=userPreferences.getUserCartId();
+                Log.i("ProductSize", String.valueOf(len));
+                Log.i("AllProd",allProd);
+                Log.i("ProdHead",link);
+                Log.i("ProdCartId1",prodId);
+
 
                 progressbar.setVisibility(View.GONE);
                 startActivity(new Intent(ProductDetail.this,Dashboard.class));
@@ -462,55 +498,8 @@ public class ProductDetail extends AppCompatActivity implements BaseSliderView.O
 
     }
 
-    private void getCarId(){
 
 
-        //Generate Uniqui ID for Cart
-        Call<CartId> call=client.cartUniquieId();
-        call.enqueue(new Callback<CartId>() {
-            @Override
-            public void onResponse(Call<CartId> call, Response<CartId> response) {
-
-                if(!response.isSuccessful()){
-                    try {
-                        APIError apiError = ErrorUtils.parseError(response);
-                        showMessage("CartIdFetch Failed: " + apiError.getMessage());
-                        Log.i("Invalid Fetch", apiError.getMessage());
-                        //Log.i("Invalid Entry", response.errorBody().toString());
-
-                    } catch (Exception e) {
-                        Log.i("Fetch Failed", e.getMessage());
-                        showMessage("CartIdFetch Failed");
-
-                    }
-
-                    return;
-                }
-
-                cart_id=response.body().getCartId();
-                userPreferences.setUserCartId(cart_id);
-
-
-                Log.i("CardId",cart_id);
-
-            }
-
-            @Override
-            public void onFailure(Call<CartId> call, Throwable t) {
-                showMessage("Failed to getCart ID "+t.getMessage());
-                Log.i("GEtError",t.getMessage());
-            }
-        });
-
-    }
-
-    //Method to set fragment immediately Onclick
-    private void showFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
-    }
 
 
 }

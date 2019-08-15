@@ -49,8 +49,8 @@ public class AccountFragment extends Fragment implements View.OnClickListener{
         ButterKnife.bind(this,view);
         userPreferences=new UserPreferences(getContext());
         String myOrderCount= String.valueOf(userPreferences.getUserOrderSize());
-        String lastOrder= String.valueOf(userPreferences.getUserLastOrder());
-        String lastOrderDate= String.valueOf(userPreferences.getUserLastOrderId());
+        String lastOrder= String.valueOf(userPreferences.getUserLastOrderId());
+        String lastOrderDate= String.valueOf(userPreferences.getUserLastOrder());
         mOrderCount.setText(myOrderCount+" Order in Progress");
         mLastOrderdate.setText("Date: "+lastOrderDate);
         mOrderId.setText("Last Order: "+lastOrder);

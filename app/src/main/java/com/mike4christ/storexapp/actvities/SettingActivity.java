@@ -282,6 +282,8 @@ public class SettingActivity extends AppCompatActivity {
                     addr2Editxt.getText().toString(),cityEditxt.getText().toString(),regionEditxt.getText().toString(),
                     zipcodeEditxt.getText().toString(),cityEditxt.getText().toString(),region_Id);
 
+            String AccTk=userPreferences.getUserAccessToken();
+            Log.i("TokenTemp",AccTk);
             Call<GetOrderAddress> call = client.putOrder_addr(userPreferences.getUserAccessToken(),putOrderAddress);
             call.enqueue(new Callback<GetOrderAddress>() {
                 @Override

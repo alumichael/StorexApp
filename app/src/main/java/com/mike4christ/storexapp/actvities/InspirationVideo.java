@@ -20,6 +20,5 @@ public class InspirationVideo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspire_video);
 
-
     }
 }

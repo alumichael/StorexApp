@@ -16,7 +16,7 @@
         <item> Paypal </item>
 
     </string-array>
-
+    <string name="title_activity_store">Stores</string>
 
 
 </resources>
